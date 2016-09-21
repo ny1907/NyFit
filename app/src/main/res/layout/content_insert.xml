@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_insert"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="ny.nyfit.InsertActivity"
+    tools:showIn="@layout/activity_insert">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/lebensmittel"
+        android:ems="10"
+        android:id="@+id/editTextLebensmittel"
+        android:background="@drawable/edit_text_layout"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/kcal"
+        android:ems="10"
+        android:layout_below="@+id/editTextLebensmittel"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="12dp"
+        android:id="@+id/editTextKcal"
+        android:background="@drawable/edit_text_layout" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/kohlenhydrate"
+        android:ems="10"
+        android:layout_below="@+id/editTextKcal"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="14dp"
+        android:id="@+id/editTextkohlenhydrate"
+        android:background="@drawable/edit_text_layout" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/proteine"
+        android:ems="10"
+        android:layout_below="@+id/editTextkohlenhydrate"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="18dp"
+        android:id="@+id/editTextProteine"
+        android:background="@drawable/edit_text_layout" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/fett"
+        android:ems="10"
+        android:layout_below="@+id/editTextProteine"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp"
+        android:id="@+id/editTextFett"
+        android:background="@drawable/edit_text_layout" />
+
+    <Button
+        android:text="Speichern"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextFett"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="77dp"
+        android:id="@+id/buttonSpeichern" />
+
+    <Button
+        android:text="Verwerfen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/buttonSpeichern"
+        android:layout_toEndOf="@+id/buttonSpeichern"
+        android:layout_marginStart="57dp"
+        android:id="@+id/buttonVerwerfen" />
+
+    <TextView
+        android:text="gramm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editTextFett"
+        android:layout_alignStart="@+id/textViewKohlenhydrate"
+        android:id="@+id/textViewProteine" />
+
+    <TextView
+        android:text="gramm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/editTextFett"
+        android:layout_alignStart="@+id/textViewProteine"
+        android:id="@+id/textViewFett" />
+
+    <TextView
+        android:text="Kcal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewKcal"
+        android:layout_above="@+id/editTextkohlenhydrate"
+        android:layout_toEndOf="@+id/editTextKcal"
+        android:layout_marginStart="17dp" />
+
+    <TextView
+        android:text="gramm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewKohlenhydrate"
+        android:layout_alignBaseline="@+id/editTextkohlenhydrate"
+        android:layout_alignBottom="@+id/editTextkohlenhydrate"
+        android:layout_alignStart="@+id/textViewKcal" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonVerwerfen"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="12dp"
+        android:id="@+id/textViewError"
+        android:textColor="#f90911"
+        android:visibility="invisible"/>
+</RelativeLayout>

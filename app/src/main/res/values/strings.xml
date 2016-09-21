@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">NyFit</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_insert">InsertActivity</string>
+    <string name="lebensmittel">Lebensmittel</string>
+    <string name="kcal">Kcal</string>
+    <string name="kohlenhydrate">Kohlenhydrate</string>
+    <string name="proteine">Proteine</string>
+    <string name="fett">Fett</string>
+</resources>
