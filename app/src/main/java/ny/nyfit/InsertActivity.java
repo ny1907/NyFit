@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import static ny.nyfit.R.string.kcal;
+import static ny.nyfit.R.string.kohlenhydrate;
+import static ny.nyfit.R.string.lebensmittel;
+
 public class InsertActivity extends AppCompatActivity {
 
     @Override
@@ -43,27 +47,23 @@ public class InsertActivity extends AppCompatActivity {
             }
         });
 
-        discard.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                setContentView(R.layout.activity_main);
-            }
-        });
 
-        save.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                if (lebensmittel.getText().toString().trim().equals("") ||
-                        kcal.getText().toString().trim().equals("") ||
-                        kohlenhydrate.getText().toString().trim().equals("") ||
-                        proteine.getText().toString().trim().equals("") ||
-                        fett.getText().toString().trim().equals("")){
+    public void save (View view) {
 
-                    error.setVisibility(TextView.VISIBLE);
-                }
-                else {
+        if (lebensmittel.getText().toString().trim().equals("") ||
+                kcal.getText().toString().trim().equals("") ||
+                kohlenhydrate.getText().toString().trim().equals("") ||
+                proteine.getText().toString().trim().equals("") ||
+                fett.getText().toString().trim().equals("")) {
 
-                }
-            }
-        });
+            error.setVisibility(TextView.VISIBLE);
+        } else {
+
+        }
     }
+        public void discard (View view){
+            setContentView(R.layout.activity_main);
+        }
 
 }
+
