@@ -7,11 +7,11 @@
             android:icon="@drawable/ic_menu_add"
             android:title="Lebensmittel hinzufügen" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_foods"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Gallery" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_foodlist"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Slideshow" />
         <item

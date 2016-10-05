@@ -11,4 +11,5 @@
     <string name="kohlenhydrate">Kohlenhydrate</string>
     <string name="proteine">Proteine</string>
     <string name="fett">Fett</string>
+    <string name="title_activity_list_view">ListViewActivity</string>
 </resources>
