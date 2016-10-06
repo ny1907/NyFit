@@ -2,8 +2,6 @@ package ny.nyfit;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -30,6 +28,7 @@ public class InsertActivity extends AppCompatActivity {
         setContentView(R.layout.activity_insert);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         Intent intent = getIntent();
         Button save = (Button) findViewById(R.id.buttonSpeichern);
@@ -82,12 +81,12 @@ public class InsertActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
+      //  DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+      //  if (drawer.isDrawerOpen(GravityCompat.START)) {
+      //      drawer.closeDrawer(GravityCompat.START);
+      //  } else {
             super.onBackPressed();
-        }
+      //  }
     }
 }
 

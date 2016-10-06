@@ -1,6 +1,8 @@
 package ny.nyfit;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,6 +13,8 @@ import java.util.ArrayList;
 
 public class ListViewActivity extends AppCompatActivity {
 
+    ArrayList<Food> foodList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,11 +22,19 @@ public class ListViewActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
+
+        Intent intent = getIntent();
+        foodList = (ArrayList<Food>)getIntent().getSerializableExtra("Food");
+
         final ListView listview = (ListView) findViewById(R.id.listview);
         String[] values = new String[] {"Volkan", "Hasan-Ali", "Skrtl", "Kjaer", "Van der Wiel",
-                                        "Topal", "Josef", "Ozan", "Volkan", "Emenike", "Lens"};
+                                        "Topal", "Josef", "Ozan", "Volkan", "Emenike", "Lens", "Van Persie", "Sener", "Salih", "Ertugrul", "Neustaedter", "Sow", "Alper"};
+
 
         final ArrayList<String> list = new ArrayList<String>();
+
+
         for (int i=0; i< values.length;++i) {
             list.add(values[i]);
         }
@@ -46,6 +58,12 @@ public class ListViewActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    public void addFood(){
+        Intent intent = new Intent(this, InsertActivity.class);
+        intent.putExtra("Foods", (ArrayList<Food>)foodList);
+        startActivity(intent);
     }
 
 }

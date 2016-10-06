@@ -78,11 +78,12 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra("Foods", (ArrayList<Food>)FOODS);
             startActivity(intent);
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_foods) {
             Intent intent = new Intent(this, FeedReaderContract.class);
             startActivity(intent);
         } else if (id == R.id.nav_foodlist) {
             Intent intent = new Intent(this, ListViewActivity.class);
+            intent.putExtra("Foods", (ArrayList<Food>)FOODS);
             startActivity(intent);
         } else if (id == R.id.nav_manage) {
 
