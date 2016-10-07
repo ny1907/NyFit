@@ -21,6 +21,7 @@ public class InsertActivity extends AppCompatActivity {
     EditText fett;
     TextView error;
     List<Food> foods = new ArrayList<Food>();
+    MySQLiteHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class InsertActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        db = new MySQLiteHelper(this);
 
         Intent intent = getIntent();
         Button save = (Button) findViewById(R.id.buttonSpeichern);
@@ -60,7 +62,8 @@ public class InsertActivity extends AppCompatActivity {
         } else {
             // Neues Food Object wird erzeugt und mit den eingegebenen Daten befüllt.
             Food food = new Food(lebensmittel.getText().toString(), Float.valueOf(kcal.getText().toString()), Float.valueOf(kohlenhydrate.getText().toString()), Float.valueOf(proteine.getText().toString()), Float.valueOf(fett.getText().toString()));
-            this.foods.add(food);
+            //this.foods.add(food);
+            db.addFood(food);
 
             lebensmittel.setText("");
             kcal.setText("");

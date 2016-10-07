@@ -8,6 +8,7 @@ import java.util.HashMap;
  */
 
 public class Food implements Serializable{
+    private int id;
     private String name;
     private float kcal;
     private float kohlenhydrate;
@@ -22,6 +23,9 @@ public class Food implements Serializable{
         this.fett = fett;
     }
 
+    public int getId(){
+        return this.id;
+    }
 
     public String getName(){
         return this.name;
@@ -41,6 +45,14 @@ public class Food implements Serializable{
 
     public float getFett(){
         return this.fett;
+    }
+
+    public void setId (int id){
+        this.id = id;
+    }
+
+    public String toString(){
+        return "Food [id=" + id + ", name=" + name + ", kcal=" + kcal + ", kohlenhydrate=" + kohlenhydrate + ", proteine=" + proteine + ", fett=" + fett;
     }
 
 }

@@ -2,7 +2,6 @@ package ny.nyfit;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListViewActivity extends AppCompatActivity {
 
@@ -22,22 +22,28 @@ public class ListViewActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
+        MySQLiteHelper db = new MySQLiteHelper(this);
 
-        Intent intent = getIntent();
-        foodList = (ArrayList<Food>)getIntent().getSerializableExtra("Food");
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
+
+        //Intent intent = getIntent();
+       // foodList = (ArrayList<Food>)getIntent().getSerializableExtra("Food");
 
         final ListView listview = (ListView) findViewById(R.id.listview);
-        String[] values = new String[] {"Volkan", "Hasan-Ali", "Skrtl", "Kjaer", "Van der Wiel",
-                                        "Topal", "Josef", "Ozan", "Volkan", "Emenike", "Lens", "Van Persie", "Sener", "Salih", "Ertugrul", "Neustaedter", "Sow", "Alper"};
+        //String[] values = new String[] {"Volkan", "Hasan-Ali", "Skrtl", "Kjaer", "Van der Wiel",
+        //                                "Topal", "Josef", "Ozan", "Volkan", "Emenike", "Lens", "Van Persie", "Sener", "Salih", "Ertugrul", "Neustaedter", "Sow", "Alper"};
 
 
         final ArrayList<String> list = new ArrayList<String>();
+        List<Food> foodList = db.allFoods();
 
-
-        for (int i=0; i< values.length;++i) {
-            list.add(values[i]);
+        for (Food f : foodList){
+            list.add(f.getName());
         }
+
+        //for (int i=0; i< values.length;++i) {
+        //    list.add(values[i]);
+        //}
 
         final StableArrayAdapter adapter = new StableArrayAdapter(this, android.R.layout.simple_list_item_1, list);
         listview.setAdapter(adapter);
