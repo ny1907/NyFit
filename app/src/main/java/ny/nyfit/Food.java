@@ -19,6 +19,7 @@ public class Food implements Serializable{
     public Food(String name, float kcal, float kohlenhydrate, float proteine, float fett) {
         this.name = name;
         this.kcal = kcal;
+        this.kohlenhydrate = kohlenhydrate;
         this.proteine = proteine;
         this.fett = fett;
     }
