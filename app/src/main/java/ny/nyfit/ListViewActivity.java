@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 public class ListViewActivity extends AppCompatActivity {
 
     ArrayList<Food> foodList;
+    MySQLiteHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +24,7 @@ public class ListViewActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        MySQLiteHelper db = new MySQLiteHelper(this);
+        db = new MySQLiteHelper(this);
 
         //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
 
@@ -53,11 +55,11 @@ public class ListViewActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
                 final String item = (String) parent.getItemAtPosition(position);
+                showDetails(item);
                 view.animate().setDuration(2000).alpha(0)
                         .withEndAction(new Runnable() {
-                            @Override
                             public void run() {
-                                list.remove(item);
+                               // list.remove(item);
                                 adapter.notifyDataSetChanged();
                                 view.setAlpha(1);
                             }
@@ -70,6 +72,13 @@ public class ListViewActivity extends AppCompatActivity {
         Intent intent = new Intent(this, InsertActivity.class);
         intent.putExtra("Foods", (ArrayList<Food>)foodList);
         startActivity(intent);
+    }
+
+    public void showDetails(String item){
+
+        EditText name = (EditText) findViewById(R.id.name);
+        name.setText(item);
+        setContentView(R.layout.content_list_view_item);
     }
 
 }

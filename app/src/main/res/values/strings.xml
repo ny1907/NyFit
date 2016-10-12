@@ -13,4 +13,13 @@
     <string name="fett">Fett</string>
     <string name="title_activity_list_view">ListViewActivity</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="add_food">Lebensmittel hinzufügen</string>
+    <string name="list">Liste</string>
+    <string name="plan1">Ernährungsplan 1</string>
+    <string name="plan2">Ernährungsplan 2</string>
+    <string name="statistics">Statistik</string>
+    <string name="input_data">Eingabe</string>
+    <string name="output_data">Übersicht</string>
+    <string name="appName">NyFit</string>
+    <string name="appDeveloper">Nasif Yüksel</string>
 </resources>

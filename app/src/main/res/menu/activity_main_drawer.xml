@@ -4,32 +4,32 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_add_foods"
-            android:icon="@drawable/ic_menu_add"
-            android:title="Lebensmittel hinzufügen" />
-        <item
-            android:id="@+id/nav_foods"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:icon="@drawable/ic_local_dining"
+            android:title="@string/add_food" />
         <item
             android:id="@+id/nav_foodlist"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Liste" />
+            android:icon="@drawable/ic_list"
+            android:title="@string/list" />
+        <item
+            android:id="@+id/nav_foods"
+            android:icon="@drawable/ic_restaurant"
+            android:title="@string/plan1" />
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:icon="@drawable/ic_restaurant"
+            android:title="@string/plan2" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/statistics">
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:icon="@drawable/ic_mode_edit"
+                android:title="@string/input_data" />
             <item
                 android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:icon="@drawable/ic_show_chart"
+                android:title="@string/output_data" />
         </menu>
     </item>
 
