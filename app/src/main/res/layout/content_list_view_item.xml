@@ -1,14 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
+    <TextView
+        android:text="Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="18dp"
+        android:textSize="14pt"
+        android:id="@+id/name" />
+
+    <TextView
+        android:text="Kalorien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_alignStart="@+id/name"
+        android:layout_marginTop="25dp"
+        android:id="@+id/kcal" />
+
+    <TextView
+        android:text="Kohlenhyrdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:id="@+id/kohlenhydrate"
+        android:layout_below="@+id/kcal"
+        android:layout_alignStart="@+id/kcal" />
+
+    <TextView
+        android:text="Proteine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:id="@+id/proteine"
+        android:layout_below="@+id/kohlenhydrate"
+        android:layout_alignStart="@+id/kohlenhydrate" />
+
+    <TextView
+        android:text="Fett"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/proteine"
+        android:layout_alignStart="@+id/proteine"
+        android:layout_marginTop="25dp"
+        android:id="@+id/fett" />
+
+    <TextView
+        android:text="Kcal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/kcal"
+        android:layout_toEndOf="@+id/kcal"
+        android:layout_marginStart="15dp"
+        android:id="@+id/kcaleinheit" />
+
+    <TextView
+        android:text="gramm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/kohlenhydrate"
+        android:layout_toEndOf="@+id/kohlenhydrate"
+        android:layout_marginStart="15dp"
+        android:id="@+id/kohlenhydrateeinheit" />
+
+    <TextView
+        android:text="gramm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/proteineeinheit"
+        android:layout_alignBaseline="@+id/proteine"
+        android:layout_alignBottom="@+id/proteine"
+        android:layout_toEndOf="@id/proteine"
+        android:layout_marginStart="15dp" />
+
+    <TextView
+        android:text="gramm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/fett"
+        android:layout_toEndOf="@+id/fett"
+        android:id="@+id/fetteinheit"
+        android:layout_marginStart="15dp"/>
+
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:text="Name"
         android:ems="10"
-        android:id="@+id/name" />
-</LinearLayout>
+        android:id="@+id/editkohlenhydrate"
+        android:layout_alignStart="@+id/name"
+        android:layout_alignTop="@+id/kcal"
+        android:layout_toStartOf="@+id/name"
+        android:layout_alignBottom="@+id/kcal"
+        android:visibility="gone"/>
+
+    <ImageButton
+        android:background="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_mode_edit"
+        android:id="@+id/imageButton"
+        android:layout_alignTop="@+id/name"
+        android:layout_toEndOf="@+id/name"
+        android:layout_marginStart="10dp"
+        android:layout_alignBottom="@+id/name"
+        android:onClick="editFood"/>
+
+
+</RelativeLayout>

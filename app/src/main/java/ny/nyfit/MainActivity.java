@@ -77,21 +77,20 @@ public class MainActivity extends AppCompatActivity
         	Intent intent = new Intent(this, InsertActivity.class);
             intent.putExtra("Foods", (ArrayList<Food>)FOODS);
             startActivity(intent);
-            // Handle the camera action
-        } else if (id == R.id.nav_foods) {
-            Intent intent = new Intent(this, FeedReaderContract.class);
-            startActivity(intent);
         } else if (id == R.id.nav_foodlist) {
             Intent intent = new Intent(this, ListViewActivity.class);
             intent.putExtra("Foods", (ArrayList<Food>)FOODS);
             startActivity(intent);
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_list1) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_list2) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_add) {
+
+        } else if (id == R.id.nav_show) {
 
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

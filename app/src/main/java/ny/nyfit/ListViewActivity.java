@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -56,14 +55,14 @@ public class ListViewActivity extends AppCompatActivity {
                                     int position, long id) {
                 final String item = (String) parent.getItemAtPosition(position);
                 showDetails(item);
-                view.animate().setDuration(2000).alpha(0)
-                        .withEndAction(new Runnable() {
-                            public void run() {
+             //   view.animate().setDuration(2000).alpha(0)
+             //           .withEndAction(new Runnable() {
+             //               public void run() {
                                // list.remove(item);
-                                adapter.notifyDataSetChanged();
-                                view.setAlpha(1);
-                            }
-                        });
+             //                   adapter.notifyDataSetChanged();
+             //                   view.setAlpha(1);
+             //               }
+             //           });
             }
         });
     }
@@ -75,10 +74,9 @@ public class ListViewActivity extends AppCompatActivity {
     }
 
     public void showDetails(String item){
-
-        EditText name = (EditText) findViewById(R.id.name);
-        name.setText(item);
-        setContentView(R.layout.content_list_view_item);
+        Intent intent = new Intent(this, ListViewActivityItem.class);
+        intent.putExtra("item", item);
+        startActivity(intent);
     }
 
 }

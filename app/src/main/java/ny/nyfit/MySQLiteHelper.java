@@ -113,6 +113,37 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         return food;
     }
 
+    public Food getFood(String name){
+
+        // Lesbare Referenz auf Datenbank
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // SQL Statement
+        Cursor cursor =
+                db.query(TABLE_FOOD, // a. table
+                        COLUMNS, // b. column names
+                        " name = ?", // c. selections
+                        new String[] { name }, // d. selections args
+                        null, // e. group by
+                        null, // f. having
+                        null, // g. order by
+                        null); // h. limit
+
+        // Erste Zeil wählen
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+
+        // Food Objekt erstellen
+        Food food = new Food(cursor.getString(1), cursor.getFloat(2), cursor.getFloat(3), cursor.getFloat(4), cursor.getFloat(5));
+        food.setId(Integer.parseInt(cursor.getString(0)));
+
+        //log
+        Log.d("getFood(" + name + ")", food.toString());
+
+        return food;
+    }
+
     public List<Food> allFoods(){
         List<Food> foods = new ArrayList<Food>();
 
