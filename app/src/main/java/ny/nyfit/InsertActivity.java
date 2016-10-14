@@ -9,8 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class InsertActivity extends AppCompatActivity {
 
@@ -20,7 +23,6 @@ public class InsertActivity extends AppCompatActivity {
     EditText proteine;
     EditText fett;
     TextView error;
-    List<Food> foods = new ArrayList<Food>();
     MySQLiteHelper db;
 
     @Override
@@ -32,11 +34,6 @@ public class InsertActivity extends AppCompatActivity {
 
         db = new MySQLiteHelper(this);
 
-        Intent intent = getIntent();
-        Button save = (Button) findViewById(R.id.buttonSpeichern);
-        Button discard = (Button) findViewById(R.id.buttonVerwerfen);
-
-        foods = (ArrayList<Food>)getIntent().getSerializableExtra("Food");
         lebensmittel = (EditText) findViewById(R.id.editTextLebensmittel);
         kcal = (EditText) findViewById(R.id.editTextKcal);
         kohlenhydrate = (EditText) findViewById(R.id.editTextkohlenhydrate);
@@ -51,19 +48,39 @@ public class InsertActivity extends AppCompatActivity {
     }
 
     public void save (View view) {
+        NumberFormat formatter = NumberFormat.getNumberInstance(Locale.GERMANY);
 
-        if (lebensmittel.getText().toString().trim().equals("") ||
-                kcal.getText().toString().trim().equals("") ||
-                kohlenhydrate.getText().toString().trim().equals("") ||
-                proteine.getText().toString().trim().equals("") ||
-                fett.getText().toString().trim().equals("")) {
+        String tempLebensmittel = lebensmittel.getText().toString().trim();
+        Float tempKcal = null;
+        Float tempKohlenhydrate = null;
+        Float tempProteine = null;
+        Float tempFett = null;
+
+        try {
+            tempKcal = formatter.parse(kcal.getText().toString().trim()).floatValue();
+            tempKohlenhydrate = formatter.parse(kohlenhydrate.getText().toString().trim()).floatValue();
+            tempProteine = formatter.parse(proteine.getText().toString().trim()).floatValue();
+            tempFett = formatter.parse(fett.getText().toString().trim()).floatValue();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        if (tempLebensmittel.equals("") ||
+                tempKcal.toString().equals("") ||
+                tempKohlenhydrate.toString().equals("") ||
+                tempProteine.toString().equals("") ||
+                tempFett.toString().equals("")) {
 
             error.setVisibility(TextView.VISIBLE);
         } else {
+
             // Neues Food Object wird erzeugt und mit den eingegebenen Daten befüllt.
-            Food food = new Food(lebensmittel.getText().toString(), Float.valueOf(kcal.getText().toString()), Float.valueOf(kohlenhydrate.getText().toString()), Float.valueOf(proteine.getText().toString()), Float.valueOf(fett.getText().toString()));
-            //this.foods.add(food);
+            Food food = new Food(tempLebensmittel, tempKcal, tempKohlenhydrate, tempProteine, tempFett);
+
             db.addFood(food);
+
+            //TODO Hinweis, dass Lebensmittel gespeichert wurde
 
             lebensmittel.setText("");
             kcal.setText("");

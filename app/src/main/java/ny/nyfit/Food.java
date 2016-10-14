@@ -14,7 +14,7 @@ public class Food implements Serializable{
     private float kohlenhydrate;
     private float proteine;
     private float fett;
-    private HashMap<String, Float> einheit;
+//    private HashMap<String, Float> einheit;
 
     public Food(String name, float kcal, float kohlenhydrate, float proteine, float fett) {
         this.name = name;

@@ -16,7 +16,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textCapSentences"
         android:hint="@string/lebensmittel"
         android:ems="10"
         android:id="@+id/editTextLebensmittel"
@@ -135,4 +135,5 @@
         android:id="@+id/textViewError"
         android:textColor="#f90911"
         android:visibility="invisible"/>
+
 </RelativeLayout>

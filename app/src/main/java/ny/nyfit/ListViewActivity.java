@@ -25,15 +25,7 @@ public class ListViewActivity extends AppCompatActivity {
 
         db = new MySQLiteHelper(this);
 
-        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
-
-        //Intent intent = getIntent();
-       // foodList = (ArrayList<Food>)getIntent().getSerializableExtra("Food");
-
         final ListView listview = (ListView) findViewById(R.id.listview);
-        //String[] values = new String[] {"Volkan", "Hasan-Ali", "Skrtl", "Kjaer", "Van der Wiel",
-        //                                "Topal", "Josef", "Ozan", "Volkan", "Emenike", "Lens", "Van Persie", "Sener", "Salih", "Ertugrul", "Neustaedter", "Sow", "Alper"};
-
 
         final ArrayList<String> list = new ArrayList<String>();
         List<Food> foodList = db.allFoods();
@@ -41,10 +33,6 @@ public class ListViewActivity extends AppCompatActivity {
         for (Food f : foodList){
             list.add(f.getName());
         }
-
-        //for (int i=0; i< values.length;++i) {
-        //    list.add(values[i]);
-        //}
 
         final StableArrayAdapter adapter = new StableArrayAdapter(this, android.R.layout.simple_list_item_1, list);
         listview.setAdapter(adapter);

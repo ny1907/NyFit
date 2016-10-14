@@ -96,10 +96,11 @@
         app:srcCompat="@drawable/ic_mode_edit"
         android:id="@+id/editButton"
         android:layout_alignTop="@+id/name"
-        android:layout_marginStart="32dp"
         android:layout_alignBottom="@+id/name"
+        android:layout_toEndOf="@+id/name"
+        android:layout_marginStart="128dp"
         android:onClick="editFood"
-        android:layout_alignEnd="@+id/proteineeinheit" />
+        />
 
     <ImageButton
         android:background="@null"
@@ -108,22 +109,23 @@
         app:srcCompat="@drawable/ic_save"
         android:id="@+id/saveButton"
         android:layout_alignTop="@+id/name"
-        android:layout_marginStart="32dp"
         android:layout_alignBottom="@+id/name"
+        android:layout_toEndOf="@+id/name"
+        android:layout_marginStart="128dp"
         android:onClick="saveChanges"
         android:visibility="invisible"
-        android:layout_alignEnd="@+id/proteineeinheit" />
+        />
 
     <ImageButton
         android:background="@null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_delete"
-        android:layout_marginStart="32dp"
         android:id="@+id/discardButton"
         android:layout_alignBottom="@+id/editButton"
         android:layout_toEndOf="@+id/editButton"
         android:layout_alignTop="@+id/editButton"
+        android:layout_marginStart="32dp"
         android:onClick="discardChanges"
         android:visibility="gone"/>
 
@@ -132,11 +134,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_delete_forever"
-        android:layout_marginStart="32dp"
         android:id="@+id/deleteButton"
         android:layout_alignBottom="@+id/editButton"
         android:layout_toEndOf="@+id/editButton"
         android:layout_alignTop="@+id/editButton"
+        android:layout_marginStart="32dp"
         android:onClick="deleteFood"/>
 
     <EditText
@@ -144,12 +146,9 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:text="Kcal"
-        android:ems="10"
-        android:layout_alignStart="@+id/kcal"
+        android:ems="3"
         android:id="@+id/editkcal"
-        android:layout_toStartOf="@+id/proteineeinheit"
-        android:layout_alignTop="@+id/kcal"
-        android:layout_above="@+id/kohlenhydrate"
+        android:layout_alignBaseline="@+id/kcal"
         android:visibility="invisible"/>
 
     <EditText
@@ -157,25 +156,19 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:text="Kohlenhydrate"
-        android:ems="10"
+        android:ems="3"
         android:id="@+id/editkohlenhydrate"
         android:visibility="invisible"
-        android:layout_alignTop="@+id/kohlenhydrate"
-        android:layout_alignStart="@+id/kohlenhydrate"
-        android:layout_toStartOf="@+id/kohlenhydrateeinheit"
-        android:layout_above="@+id/proteine" />
+        android:layout_alignBaseline="@+id/kohlenhydrate" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:text="Proteine"
-        android:ems="10"
-        android:layout_alignStart="@+id/proteine"
+        android:ems="3"
+        android:layout_alignBaseline="@+id/proteine"
         android:id="@+id/editproteine"
-        android:layout_toStartOf="@+id/proteineeinheit"
-        android:layout_above="@+id/fett"
-        android:layout_alignTop="@+id/proteine"
         android:visibility="invisible"/>
 
     <EditText
@@ -183,12 +176,9 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:text="Fett"
-        android:ems="10"
-        android:layout_alignTop="@+id/fett"
-        android:layout_alignStart="@+id/fett"
+        android:ems="3"
+        android:layout_alignBaseline="@+id/fett"
         android:id="@+id/editfett"
-        android:layout_toStartOf="@+id/fetteinheit"
-        android:layout_alignBottom="@+id/fett"
         android:visibility="invisible"/>
 
     <EditText
@@ -197,11 +187,8 @@
         android:inputType="textPersonName"
         android:text="Name"
         android:ems="10"
-        android:layout_alignTop="@+id/name"
-        android:layout_alignStart="@+id/name"
+        android:layout_alignBaseline="@+id/name"
         android:id="@+id/editname"
-        android:layout_alignEnd="@+id/name"
-        android:layout_above="@+id/kcal"
         android:visibility="invisible"/>
 
 </RelativeLayout>
