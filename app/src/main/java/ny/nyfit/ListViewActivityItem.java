@@ -1,7 +1,9 @@
 package ny.nyfit;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -154,14 +156,32 @@ public class ListViewActivityItem extends AppCompatActivity{
     // Delete Food from Database
     public void deleteFood(View view){
 
-        //TODO Dialog ob sicher
+        new AlertDialog.Builder(this)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setTitle("Löschen")
+            .setMessage("Wirklich Löschen?")
+            .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                   deleteFoodFromDB();
+                }
+            })
+            .setNegativeButton("Nein", null)
+            .show();
+
+    }
+
+    private void deleteFoodFromDB(){
         MySQLiteHelper db = new MySQLiteHelper(this);
         db.getWritableDatabase();
 
         db.delete(this.food);
         db.close();
 
-        super.onBackPressed();
+
+        Intent intent = new Intent(this, ListViewActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void saveChanges(View view) {

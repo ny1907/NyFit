@@ -14,7 +14,6 @@ import java.util.List;
 public class ListViewActivity extends AppCompatActivity {
 
     ArrayList<Food> foodList;
-    MySQLiteHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +22,14 @@ public class ListViewActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        db = new MySQLiteHelper(this);
+        MySQLiteHelper db = new MySQLiteHelper(this);
+        db.getReadableDatabase();
 
         final ListView listview = (ListView) findViewById(R.id.listview);
 
         final ArrayList<String> list = new ArrayList<String>();
         List<Food> foodList = db.allFoods();
+        db.close();
 
         for (Food f : foodList){
             list.add(f.getName());

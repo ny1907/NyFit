@@ -147,7 +147,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     public List<Food> allFoods(){
         List<Food> foods = new ArrayList<Food>();
 
-        String query = "SELECT * FROM " + TABLE_FOOD;
+        String query = "SELECT * FROM " + TABLE_FOOD + " ORDER BY NAME";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
