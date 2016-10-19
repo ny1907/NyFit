@@ -1,7 +1,6 @@
 package ny.nyfit;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 /**
  * Created by U820319 on 30.09.2016.
@@ -50,6 +49,26 @@ public class Food implements Serializable{
 
     public void setId (int id){
         this.id = id;
+    }
+
+    public void setName (String name){
+        this.name = name;
+    }
+
+    public void setKcal (Float kcal){
+        this.kcal = kcal;
+    }
+
+    public void setKohlenhydrate (Float kohlenhydrate){
+        this.kohlenhydrate = kohlenhydrate;
+    }
+
+    public void setProteine (Float proteine){
+        this.proteine = proteine;
+    }
+
+    public void setFett (Float fett){
+        this.fett = fett;
     }
 
     public String toString(){

@@ -1,5 +1,6 @@
 package ny.nyfit;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 
 /**
  * Created by U820319 on 13.10.2016.
@@ -16,11 +22,11 @@ import android.widget.TextView;
 
 public class ListViewActivityItem extends AppCompatActivity{
     Food food;
-    String name;
-    Float kcal;
+    String nameFood;
+    /*Float kcal;
     Float kohlenhydrate;
     Float proteine;
-    Float fett;
+    Float fett;*/
 
     private TextView tname;
     private TextView tkcal;
@@ -45,7 +51,7 @@ public class ListViewActivityItem extends AppCompatActivity{
         setContentView(R.layout.content_list_view_item);
 
         Intent intent = getIntent();
-        name = (String) intent.getSerializableExtra("item");
+        nameFood = (String) intent.getSerializableExtra("item");
 
         // IDs der Textfelder ermitteln
         tname = (TextView)findViewById(R.id.name);
@@ -72,22 +78,16 @@ public class ListViewActivityItem extends AppCompatActivity{
         db.getReadableDatabase();
 
         // Food-Objekt aus Datenbank erzeugen
-        food = db.getFood(name);
-
-        kcal = food.getKcal();
-        kohlenhydrate = food.getKohlenhydrate();
-        proteine = food.getProteine();
-        fett = food.getFett();
-
+        food = db.getFood(nameFood);
+        db.close();
 
         // Textfelder mit Werten befüllen
-        tname.setText(name);
-        tkcal.setText(kcal.toString());
-        tkohlenhydrate.setText(kohlenhydrate.toString());
-        tproteine.setText(proteine.toString());
-        tfett.setText(fett.toString());
+        tname.setText(food.getName());
+        tkcal.setText(String.valueOf(food.getKcal()));
+        tkohlenhydrate.setText(String.valueOf(food.getKohlenhydrate()));
+        tproteine.setText(String.valueOf(food.getProteine()));
+        tfett.setText(String.valueOf(food.getFett()));
 
-        db.close();
     }
 
     public void editFood(View view){
@@ -103,11 +103,11 @@ public class ListViewActivityItem extends AppCompatActivity{
         tfett.setVisibility(TextView.INVISIBLE);
 
         // Eingabefelder vorbefüllen
-        eName.setText(this.name);
-        eKcal.setText(this.kcal.toString());
-        eKohlenhydrate.setText(this.kohlenhydrate.toString());
-        eProteine.setText(this.proteine.toString());
-        eFett.setText(this.fett.toString());
+        eName.setText(food.getName());
+        eKcal.setText(String.valueOf(food.getKcal()));
+        eKohlenhydrate.setText(String.valueOf(food.getKohlenhydrate()));
+        eProteine.setText(String.valueOf(food.getProteine()));
+        eFett.setText(String.valueOf(food.getFett()));
 
         // Buttons sichtbar machen
         saveButton.setVisibility(ImageButton.VISIBLE);
@@ -185,5 +185,94 @@ public class ListViewActivityItem extends AppCompatActivity{
     }
 
     public void saveChanges(View view) {
+        //TODO Prüfen, ob leere Felder vorhanden
+
+        //Inhalte zwischenspeichern
+        String tempName = eName.getText().toString().trim();
+        String tempKcal = eKcal.getText().toString().trim();
+        String tempKohlenhydrate = eKohlenhydrate.getText().toString().trim();
+        String tempProteine = eProteine.getText().toString().trim();
+        String tempFett = eFett.getText().toString().trim();
+
+        if (tempName.equals("") || tempKcal.equals("") || tempKohlenhydrate.equals("") || tempProteine.equals("") || tempFett.equals("")){
+            new AlertDialog.Builder(this)
+                    .setTitle("Leere Felder")
+                    .setMessage("Alle Felder müssen befüllt werden!")
+                    .setNegativeButton("Nein", null)
+                    .show();
+
+        }
+        else{
+            NumberFormat formatter = NumberFormat.getNumberInstance(Locale.GERMANY);
+
+            //Buttons unsichtbar machen
+            saveButton.setVisibility(ImageButton.INVISIBLE);
+            discardButton.setVisibility(ImageButton.INVISIBLE);
+
+
+            // Prüfen, ob Änderungen vorliegen
+            if (!tempName.equals(food.getName()) || !tempKcal.equals(String.valueOf(food.getKcal())) || !tempKohlenhydrate.equals(String.valueOf(food.getKohlenhydrate())) || !tempProteine.equals(String.valueOf(food.getProteine())) || !tempFett.equals(String.valueOf(food.getFett()))){
+
+                food.setName(tempName);
+                try {
+                    food.setKcal(formatter.parse(tempKcal).floatValue());
+                    food.setKohlenhydrate(formatter.parse(tempKohlenhydrate).floatValue());
+                    food.setProteine(formatter.parse(tempProteine).floatValue());
+                    food.setFett(formatter.parse(tempFett).floatValue());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                //Werte in die DB schreiben
+                saveChangesOnDB(this.food);
+
+                Context context = getApplicationContext();
+                Toast.makeText(context, "Die Änderungen wurden gespeichert.", Toast.LENGTH_SHORT);
+            }
+
+            else {
+                Context context = getApplicationContext();
+                Toast.makeText(context, "Es wurde nichts verändert!", Toast.LENGTH_SHORT).show();
+            }
+
+
+            //Buttons sichtbar machen
+            editButton.setVisibility(ImageButton.VISIBLE);
+            deleteButton.setVisibility(ImageButton.VISIBLE);
+
+            //EditTextfelder unsichtbar machen
+            eName.setVisibility(editButton.INVISIBLE);
+            eKcal.setVisibility(editButton.INVISIBLE);
+            eKohlenhydrate.setVisibility(editButton.INVISIBLE);
+            eProteine.setVisibility(editButton.INVISIBLE);
+            eFett.setVisibility(editButton.INVISIBLE);
+
+            //Textfelder mit aktuellen Werten befüllen
+            tname.setText(food.getName());
+            tkcal.setText(String.valueOf(food.getKcal()));
+            tkohlenhydrate.setText(String.valueOf(food.getKohlenhydrate()));
+            tproteine.setText(String.valueOf(food.getProteine()));
+            tfett.setText(String.valueOf(food.getFett()));
+
+            //Textfelder sichtbar machen
+            tname.setVisibility(TextView.VISIBLE);
+            tkcal.setVisibility(TextView.VISIBLE);
+            tkohlenhydrate.setVisibility(TextView.VISIBLE);
+            tproteine.setVisibility(TextView.VISIBLE);
+            tfett.setVisibility(TextView.VISIBLE);
+
+        }
+
+
+
+
+    }
+
+    private void saveChangesOnDB(Food food){
+        MySQLiteHelper db = new MySQLiteHelper(this);
+        db.getWritableDatabase();
+
+        db.addFood(food);
+        db.close();
     }
 }
