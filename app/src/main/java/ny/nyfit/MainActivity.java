@@ -14,6 +14,8 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    protected DrawerLayout drawer;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +23,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         if (drawer != null) {
@@ -64,7 +66,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -77,13 +78,13 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, ListViewActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_list1) {
-
+            // TODO
         } else if (id == R.id.nav_list2) {
-
+            // TODO
         } else if (id == R.id.nav_add) {
-
+            // TODO Erfassung von Gewichtstatistiken
         } else if (id == R.id.nav_show) {
-
+            // TODO Anzeige von Gewichtsstatistiken
         }
 
 

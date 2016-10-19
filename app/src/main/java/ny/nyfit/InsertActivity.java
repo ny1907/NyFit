@@ -104,6 +104,18 @@ public class InsertActivity extends AppCompatActivity
         }
     }
 
+    private boolean keineLeerenFelder(){
+        // TODO Prüfen, ob leere Felder vorhanden. Falls ja, Fokus in das erste leere Feld
+        return true;
+    }
+
+    private boolean felderPlausibilisieren(){
+        // TODO Name: Nur Buchstaben, max. 30 Zeichen
+        // TODO Kcal, Kohlenhydrate, Proteine, Fett: Nur Zahlen und EIN Punkt oder EIN Komma, max. 5 Zeichen
+
+        return true;
+    }
+
     public void discard (View view){
             lebensmittel.setText("");
             kcal.setText("");
