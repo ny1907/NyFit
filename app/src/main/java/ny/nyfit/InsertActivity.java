@@ -106,6 +106,7 @@ public class InsertActivity extends AppCompatActivity
 
     private boolean keineLeerenFelder(){
         // TODO Prüfen, ob leere Felder vorhanden. Falls ja, Fokus in das erste leere Feld
+
         return true;
     }
 

@@ -70,3 +70,5 @@ public class ListViewActivity extends AppCompatActivity {
 
 }
 //http://www.vogella.com/tutorials/AndroidListView/article.html
+
+//TODO https://github.com/liuzc/android-swipelistview
