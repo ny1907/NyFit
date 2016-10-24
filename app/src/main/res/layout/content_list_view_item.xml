@@ -191,4 +191,40 @@
         android:id="@+id/editname"
         android:visibility="invisible"/>
 
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/fett"
+        android:layout_marginBottom="64dp"
+        android:id="@+id/addToList" />
+
+    <TextView
+        android:text="KH%"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/kohlenhydrateeinheit"
+        android:layout_toEndOf="@id/kohlenhydrateeinheit"
+        android:layout_marginStart="15dp"
+        android:id="@+id/kohlenhydrateProzent" />
+
+    <TextView
+        android:text="Pro%"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/proteineeinheit"
+        android:layout_toEndOf="@id/proteineeinheit"
+        android:layout_marginStart="15dp"
+        android:id="@+id/ProteineProzent" />
+
+    <TextView
+        android:text="Fett%"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/fetteinheit"
+        android:layout_toEndOf="@id/fetteinheit"
+        android:layout_marginStart="15dp"
+        android:id="@+id/fettProzent" />
+
 </RelativeLayout>

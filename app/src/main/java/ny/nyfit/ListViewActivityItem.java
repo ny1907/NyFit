@@ -3,6 +3,7 @@ package ny.nyfit;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
@@ -45,6 +47,9 @@ public class ListViewActivityItem extends AppCompatActivity{
     private ImageButton discardButton;
     private ImageButton deleteButton;
 
+    private TextView tKHProzent;
+    private TextView tProteineProzent;
+    private TextView tFettProzent;
 
     protected void onCreate(final Bundle savedInstanBundle){
         super.onCreate(savedInstanBundle);
@@ -59,6 +64,10 @@ public class ListViewActivityItem extends AppCompatActivity{
         tkohlenhydrate = (TextView)findViewById(R.id.kohlenhydrate);
         tproteine = (TextView)findViewById(R.id.proteine);
         tfett = (TextView)findViewById(R.id.fett);
+
+        tKHProzent = (TextView)findViewById(R.id.kohlenhydrateProzent);
+        tProteineProzent = (TextView)findViewById(R.id.ProteineProzent);
+        tFettProzent = (TextView)findViewById(R.id.fettProzent);
 
         // IDs der Eingabefelder
         eName = (EditText)findViewById(R.id.editname);
@@ -88,6 +97,8 @@ public class ListViewActivityItem extends AppCompatActivity{
         tproteine.setText(String.valueOf(food.getProteine()));
         tfett.setText(String.valueOf(food.getFett()));
 
+        setPercentValues();
+        colorValues();
     }
 
     public void editFood(View view){
@@ -101,6 +112,11 @@ public class ListViewActivityItem extends AppCompatActivity{
         tkohlenhydrate.setVisibility(TextView.INVISIBLE);
         tproteine.setVisibility(TextView.INVISIBLE);
         tfett.setVisibility(TextView.INVISIBLE);
+
+        // Prozentangaben unsichtbar machen
+        tKHProzent.setVisibility(TextView.INVISIBLE);
+        tProteineProzent.setVisibility(TextView.INVISIBLE);
+        tFettProzent.setVisibility(TextView.INVISIBLE);
 
         // Eingabefelder vorbefüllen
         eName.setText(food.getName());
@@ -147,6 +163,11 @@ public class ListViewActivityItem extends AppCompatActivity{
         tkohlenhydrate.setVisibility(TextView.VISIBLE);
         tproteine.setVisibility(TextView.VISIBLE);
         tfett.setVisibility(TextView.VISIBLE);
+
+        // Prozentfelder sichtbar machen
+        tKHProzent.setVisibility(TextView.VISIBLE);
+        tProteineProzent.setVisibility(TextView.VISIBLE);
+        tFettProzent.setVisibility(TextView.VISIBLE);
 
         // Buttons sichtbar machen
         editButton.setVisibility(ImageButton.VISIBLE);
@@ -254,6 +275,15 @@ public class ListViewActivityItem extends AppCompatActivity{
             tproteine.setText(String.valueOf(food.getProteine()));
             tfett.setText(String.valueOf(food.getFett()));
 
+            // Prozentfelder neu berechnen
+            setPercentValues();
+            colorValues();
+
+            // Prozentfelder sichtbar machen
+            tKHProzent.setVisibility(TextView.VISIBLE);
+            tProteineProzent.setVisibility(TextView.VISIBLE);
+            tFettProzent.setVisibility(TextView.VISIBLE);
+
             //Textfelder sichtbar machen
             tname.setVisibility(TextView.VISIBLE);
             tkcal.setVisibility(TextView.VISIBLE);
@@ -262,10 +292,6 @@ public class ListViewActivityItem extends AppCompatActivity{
             tfett.setVisibility(TextView.VISIBLE);
 
         }
-
-
-
-
     }
 
     private void saveChangesOnDB(Food food){
@@ -274,5 +300,61 @@ public class ListViewActivityItem extends AppCompatActivity{
 
         db.addFood(food);
         db.close();
+    }
+
+    private void setPercentValues(){
+        Float tempKH = Float.valueOf(tkohlenhydrate.getText().toString()) * 4.1f;
+        Float tempProtein = Float.valueOf(tproteine.getText().toString()) * 4.1f;
+        Float tempFett = Float.valueOf(tfett.getText().toString()) * 9.3f;
+
+        Float gesamt = tempKH + tempProtein + tempFett;
+        DecimalFormat df = new DecimalFormat("0,0");
+
+        Float khProzent = (tempKH * 100)/gesamt;
+        Float proteineProzent = (tempProtein *100)/gesamt;
+        Float fettProzent = (tempFett *100)/gesamt;
+
+        tKHProzent.setText(df.format(khProzent.toString()) + " %");
+        tProteineProzent.setText(df.format(proteineProzent.toString()) + " %");
+        tFettProzent.setText(df.format(fettProzent.toString()) + " %");
+    }
+
+    private void colorValues(){
+        Float tempKohlenhydrate = Float.valueOf(tKHProzent.getText().toString());
+        Float tempProtein = Float.valueOf(tProteineProzent.getText().toString());
+        Float tempFett = Float.valueOf(tFettProzent.getText().toString());
+
+        // Kohlenhydrate
+        if (tempKohlenhydrate > 70){
+            tKHProzent.setTextColor(Color.RED);
+        }
+        else if (tempKohlenhydrate >50){
+            tKHProzent.setTextColor(Color.YELLOW);
+        }
+        else if (tempKohlenhydrate <= 50){
+            tKHProzent.setTextColor(Color.GREEN);
+        }
+
+        // Proteine
+        if (tempProtein < 20){
+            tProteineProzent.setTextColor(Color.RED);
+        }
+        else if (tempProtein < 30){
+            tProteineProzent.setTextColor(Color.YELLOW);
+        }
+        else {
+            tProteineProzent.setTextColor(Color.GREEN);
+        }
+
+        // Fett
+        if (tempFett > 50 || tempFett < 10){
+            tFettProzent.setTextColor(Color.RED);
+        }
+        else if ((tempFett <20 && tempFett >= 10) || (tempFett > 40 && tempFett <= 50)){
+            tFettProzent.setTextColor(Color.YELLOW);
+        }
+        else if (tempFett >= 20 || tempFett <= 40){
+            tFettProzent.setTextColor(Color.GREEN);
+        }
     }
 }
