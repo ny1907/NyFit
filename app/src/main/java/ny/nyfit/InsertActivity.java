@@ -1,5 +1,6 @@
 package ny.nyfit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -27,6 +29,11 @@ public class InsertActivity extends AppCompatActivity
     EditText fett;
     TextView error;
     MySQLiteHelper db;
+
+    Context context = getApplicationContext();
+    String text = "Hinweis";
+    int duration = Toast.LENGTH_SHORT;
+    Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,58 +68,165 @@ public class InsertActivity extends AppCompatActivity
     }
 
     public void save (View view) {
-        NumberFormat formatter = NumberFormat.getNumberInstance(Locale.GERMANY);
+        if(keineLeerenFelder()){
+           if(felderPlausibilisieren()){
+               if(pruefeFeldlaengen()){
 
-        String tempLebensmittel = lebensmittel.getText().toString().trim();
-        Float tempKcal = null;
-        Float tempKohlenhydrate = null;
-        Float tempProteine = null;
-        Float tempFett = null;
+                    NumberFormat formatter = NumberFormat.getNumberInstance(Locale.GERMANY);
 
-        try {
-            tempKcal = formatter.parse(kcal.getText().toString().trim()).floatValue();
-            tempKohlenhydrate = formatter.parse(kohlenhydrate.getText().toString().trim()).floatValue();
-            tempProteine = formatter.parse(proteine.getText().toString().trim()).floatValue();
-            tempFett = formatter.parse(fett.getText().toString().trim()).floatValue();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+                    String tempLebensmittel = lebensmittel.getText().toString().trim();
+                    Float tempKcal = null;
+                    Float tempKohlenhydrate = null;
+                    Float tempProteine = null;
+                    Float tempFett = null;
+
+                    try {
+                        tempKcal = formatter.parse(kcal.getText().toString().trim()).floatValue();
+                        tempKohlenhydrate = formatter.parse(kohlenhydrate.getText().toString().trim()).floatValue();
+                        tempProteine = formatter.parse(proteine.getText().toString().trim()).floatValue();
+                        tempFett = formatter.parse(fett.getText().toString().trim()).floatValue();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
 
-        if (tempLebensmittel.equals("") ||
-                tempKcal.toString().equals("") ||
-                tempKohlenhydrate.toString().equals("") ||
-                tempProteine.toString().equals("") ||
-                tempFett.toString().equals("")) {
+                    if (tempLebensmittel.equals("") ||
+                            tempKcal.toString().equals("") ||
+                            tempKohlenhydrate.toString().equals("") ||
+                            tempProteine.toString().equals("") ||
+                            tempFett.toString().equals("")) {
 
-            error.setVisibility(TextView.VISIBLE);
-        } else {
+                        error.setVisibility(TextView.VISIBLE);
+                    } else {
 
-            // Neues Food Object wird erzeugt und mit den eingegebenen Daten befüllt.
-            Food food = new Food(tempLebensmittel, tempKcal, tempKohlenhydrate, tempProteine, tempFett);
+                        // Neues Food Object wird erzeugt und mit den eingegebenen Daten befüllt.
+                        Food food = new Food(tempLebensmittel, tempKcal, tempKohlenhydrate, tempProteine, tempFett);
 
-            db.addFood(food);
+                        db.addFood(food);
 
-            //TODO Hinweis, dass Lebensmittel gespeichert wurde
+                        //TODO Testen: Hinweis, dass Lebensmittel gespeichert wurde
+                        context = getApplicationContext();
+                        text = "Das Lebensmittel wurde hinzugefügt!";
+                        toast = Toast.makeText(context, text, duration);
+                        toast.show();
 
-            lebensmittel.setText("");
-            kcal.setText("");
-            kohlenhydrate.setText("");
-            proteine.setText("");
-            fett.setText("");
+                        lebensmittel.setText("");
+                        kcal.setText("");
+                        kohlenhydrate.setText("");
+                        proteine.setText("");
+                        fett.setText("");
 
+                    }
+
+               }
+           }
         }
     }
 
     private boolean keineLeerenFelder(){
-        // TODO Prüfen, ob leere Felder vorhanden. Falls ja, Fokus in das erste leere Feld
+        context = getApplicationContext();
+        text = "Bitte alle Felder ausfüllen!";
+
+        toast = Toast.makeText(context, text, duration);
+        // TODO TESTEN: Prüfen, ob leere Felder vorhanden. Falls ja, Fokus in das erste leere Feld
+        if(lebensmittel.getText().toString().trim().equals("")){
+            lebensmittel.requestFocus();
+            toast.show();
+            return false;
+        }
+        else if(kcal.getText().toString().trim().equals("")){
+            kcal.requestFocus();
+            toast.show();
+            return false;
+        }
+        else if(kohlenhydrate.getText().toString().trim().equals("")){
+            kohlenhydrate.requestFocus();
+            toast.show();
+            return false;
+        }
+        else if (proteine.getText().toString().trim().equals("")){
+            proteine.requestFocus();
+            toast.show();
+            return false;
+        }
+        else if (fett.getText().toString().trim().equals("")){
+            fett.requestFocus();
+            toast.show();
+            return false;
+        }
 
         return true;
     }
 
+    /*
+     Prüft, ob Eingaben ok sind.
+     return true: Alle Felder ok
+     return false: Eines der Felder erfüllt nicht
+      */
     private boolean felderPlausibilisieren(){
+        context = getApplicationContext();
+        text = "Unerlaubte Zeichen";
+        toast.makeText(context, text, duration);
         // TODO Name: Nur Buchstaben, max. 30 Zeichen
         // TODO Kcal, Kohlenhydrate, Proteine, Fett: Nur Zahlen und EIN Punkt oder EIN Komma, max. 5 Zeichen
+        if (!lebensmittel.getText().toString().trim().matches("[A-Za-z &\\-0-9]")){
+            lebensmittel.requestFocus();
+            toast.show();
+            return false;
+        }
+        if (!kcal.getText().toString().trim().matches("[0-9.,]")){
+            kcal.requestFocus();
+            toast.show();
+            return false;
+        }
+        if (!kohlenhydrate.getText().toString().trim().matches("[0-9.,]")){
+            kohlenhydrate.requestFocus();
+            toast.show();
+            return false;
+        }
+        if (!proteine.getText().toString().trim().matches("[0-9.,]")){
+            proteine.requestFocus();
+            toast.show();
+            return false;
+        }
+        if(!fett.getText().toString().trim().matches("[0-9.,]")){
+            toast.show();
+            fett.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean pruefeFeldlaengen(){
+        context = getApplicationContext();
+        text = "Das Feld enthält zu viele Zeichen";
+        toast = Toast.makeText(context, text, duration);
+        if(lebensmittel.length() > 30){
+            lebensmittel.requestFocus();
+            toast.show();
+            return false;
+        }
+        if (kcal.length() > 10){
+            kcal.requestFocus();
+            toast.show();
+            return false;
+        }
+        if (kohlenhydrate.length() > 10){
+            kohlenhydrate.requestFocus();
+            toast.show();
+            return false;
+        }
+        if (proteine.length() > 10){
+            proteine.requestFocus();
+            toast.show();
+            return false;
+        }
+        if (fett.length() > 10){
+            fett.requestFocus();
+            toast.show();
+            return false;
+        }
 
         return true;
     }
