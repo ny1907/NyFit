@@ -35,33 +35,33 @@ public class DoubleDrawerActivity  extends AppCompatActivity{
             // Configure navigation drawer
             mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
             mLeftDrawerView = findViewById(R.id.drawer_layout);
-            mRightDrawerView = findViewById(R.id.right_drawer);
-            mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_navigation_drawer, R.string.drawer_open, R.string.drawer_close) {
+//            mRightDrawerView = findViewById(R.id.right_drawer);
+//            mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_navigation_drawer, R.string.drawer_open, R.string.drawer_close) {
 
                 /** Called when a drawer has settled in a completely closed state. */
-                public void onDrawerClosed(View drawerView) {
-                    if(drawerView.equals(mLeftDrawerView)) {
-                        getSupportActionBar().setTitle(getTitle());
-                        supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-                        mDrawerToggle.syncState();
-                    }
-                }
+//                public void onDrawerClosed(View drawerView) {
+//                    if(drawerView.equals(mLeftDrawerView)) {
+//                        getSupportActionBar().setTitle(getTitle());
+//                        supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+//                        mDrawerToggle.syncState();
+//                    }
+//                }
 
                 /** Called when a drawer has settled in a completely open state. */
-                public void onDrawerOpened(View drawerView) {
-                    if(drawerView.equals(mLeftDrawerView)) {
-                        getSupportActionBar().setTitle(getString(R.string.app_name));
-                        supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-                        mDrawerToggle.syncState();
-                    }
-                }
+//                public void onDrawerOpened(View drawerView) {
+//                    if(drawerView.equals(mLeftDrawerView)) {
+//                        getSupportActionBar().setTitle(getString(R.string.app_name));
+//                        supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+//                        mDrawerToggle.syncState();
+//                    }
+//                }
 
-                @Override
-                public void onDrawerSlide(View drawerView, float slideOffset) {
-                    // Avoid normal indicator glyph behaviour. This is to avoid glyph movement when opening the right drawer
-                    //super.onDrawerSlide(drawerView, slideOffset);
-                }
-            };
+//                @Override
+//                public void onDrawerSlide(View drawerView, float slideOffset) {
+//                    // Avoid normal indicator glyph behaviour. This is to avoid glyph movement when opening the right drawer
+//                    //super.onDrawerSlide(drawerView, slideOffset);
+//                }
+//            };
 
             mDrawerLayout.setDrawerListener(mDrawerToggle); // Set the drawer toggle as the DrawerListener
         }
