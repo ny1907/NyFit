@@ -24,6 +24,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 
     // Food table name
     private static final String TABLE_FOOD = "Lebensmittel";
+    // Plan table name
+    private static final String TABLE_PLAN = "Plan";
 
     // Food table Columns names
     private static final String KEY_ID = "id";
@@ -33,6 +35,30 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     private static final String KEY_PROTEINS = "Proteine";
     private static final String KEY_FAT = "Fett";
 
+
+    // Plan table Columns names
+    private static final String PLAN_ID = "id";
+    private static final String PLAN_NAME = "Name";
+    private static final String PLAN_FOOD_ID = "Food_ID";
+
+    // Table Create Statments
+    // Food Table Create Statement
+    private static final String CREATE_TABLE_FOOD = "CREATE TABLE IF NOT EXISTS " + TABLE_FOOD + "(" +
+            "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "Name TEXT NOT NULL, " +
+            "Kcal REAL NOT NULL," +
+            "Kohlenhydrate REAL NOT NULL, " +
+            "Proteine REAL NOT NULL, " +
+            "Fett REAL NOT NULL" +
+            ");";
+
+    // Plan Table Create Statement
+    private static final String CREATE_TABLE_PLAN = "CREATE TABLE IF NOT EXISTS " + TABLE_PLAN + "(" +
+            "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "Name TEXT NOT NULL, " +
+            "Food_ID INTEGER , " +
+            "FOREIGN KEY(Food_ID) REFERENCES Lebensmittel(id))";
+
     private static final String[] COLUMNS = {KEY_ID, KEY_NAME, KEY_KCAL, KEY_CARBONHYDRATES, KEY_PROTEINS, KEY_FAT};
 
     public MySQLiteHelper(Context context) {
@@ -41,23 +67,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS Lebensmittel(" +
-                "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "Name TEXT NOT NULL, " +
-                "Kcal REAL NOT NULL," +
-                "Kohlenhydrate REAL NOT NULL, " +
-                "Proteine REAL NOT NULL, " +
-                "Fett REAL NOT NULL" +
-                ");";
 
-        db.execSQL(CREATE_TABLE);
+        db.execSQL(CREATE_TABLE_FOOD);
+        db.execSQL(CREATE_TABLE_PLAN);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String DELETE_TABLE = "DROP TABLE IF EXISTS Lebensmittel";
 
-        db.execSQL(DELETE_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PLAN);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOOD);
         onUpgrade(db, oldVersion, newVersion);
         this.onCreate(db);
     }
@@ -80,6 +99,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 
         db.insert(TABLE_FOOD, null, values);
         db.close();
+    }
+
+    public void addFoodToPlan(int id){
+        Log.d("addFoodToPlan", String.valueOf(id));
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        // TODO
     }
 
     public Food getFood(int id){

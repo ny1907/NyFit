@@ -30,7 +30,7 @@ public class InsertActivity extends AppCompatActivity
     TextView error;
     MySQLiteHelper db;
 
-    Context context = getApplicationContext();
+    Context context;
     String text = "Hinweis";
     int duration = Toast.LENGTH_SHORT;
     Toast toast;
@@ -41,6 +41,7 @@ public class InsertActivity extends AppCompatActivity
         setContentView(R.layout.activity_insert);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        context = getApplicationContext();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

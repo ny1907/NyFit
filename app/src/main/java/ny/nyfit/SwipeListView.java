@@ -4,11 +4,7 @@ package ny.nyfit;
  * Created by U820319 on 25.10.2016.
  */
 
-import android.widget.ListView;
-
-
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewConfigurationCompat;
@@ -159,7 +155,7 @@ public class SwipeListView extends ListView {
         int swipeActionLeft = SWIPE_ACTION_REVEAL;
         int swipeActionRight = SWIPE_ACTION_REVEAL;
 
-        if (attrs != null) {
+    /*    if (attrs != null) {
             TypedArray styled = getContext().obtainStyledAttributes(attrs, R.styleable.SwipeListView);
             swipeMode = styled.getInt(R.styleable.SwipeListView_swipeMode, SWIPE_MODE_BOTH);
             swipeActionLeft = styled.getInt(R.styleable.SwipeListView_swipeActionLeft, SWIPE_ACTION_REVEAL);
@@ -171,7 +167,7 @@ public class SwipeListView extends ListView {
             swipeCloseAllItemsWhenMoveList = styled.getBoolean(R.styleable.SwipeListView_swipeCloseAllItemsWhenMoveList, true);
             swipeFrontView = styled.getResourceId(R.styleable.SwipeListView_swipeFrontView, 0);
             swipeBackView = styled.getResourceId(R.styleable.SwipeListView_swipeBackView, 0);
-        }
+        }*/
 
         if (swipeFrontView == 0 || swipeBackView == 0) {
             swipeFrontView = getContext().getResources().getIdentifier(SWIPE_DEFAULT_FRONT_VIEW, "id", getContext().getPackageName());

@@ -14,17 +14,20 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/*
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ValueAnimator;
+*/
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+/*
 import static com.nineoldandroids.view.ViewHelper.setAlpha;
 import static com.nineoldandroids.view.ViewHelper.setTranslationX;
 import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
+*/
 
 /**
  * Touch listener impl for the SwipeListView
@@ -340,7 +343,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
             alpha = 0;
         }
 
-        animate(view)
+       /* animate(view)
                 .translationX(moveTo)
                 .alpha(alpha)
                 .setDuration(animationTime)
@@ -352,7 +355,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                             performDismiss(view, position);
                         }
                     }
-                });
+                });*/
 
     }
 
@@ -375,7 +378,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
             }
         }
 
-        animate(view)
+        /*animate(view)
                 .translationX(moveTo)
                 .setDuration(animationTime)
                 .setListener(new AnimatorListenerAdapter() {
@@ -393,7 +396,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                             }
                         }
                     }
-                });
+                });*/
     }
 
     /**
@@ -629,7 +632,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                     if (opened.get(downPosition)) {
                         deltaX += openedRight.get(downPosition) ? viewWidth - rightOffset : -viewWidth + leftOffset;
                     }
-                    move(deltaX);
+              //      move(deltaX);
                     return true;
                 }
                 break;
@@ -642,7 +645,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      * Moves the view
      * @param deltaX delta
      */
-    public void move(float deltaX) {
+   /* public void move(float deltaX) {
         swipeListView.onMove(downPosition, deltaX);
         if (swipeCurrentAction == SwipeListView.SWIPE_ACTION_DISMISS) {
             setTranslationX(parentView, deltaX);
@@ -651,7 +654,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
         } else {
             setTranslationX(frontView, deltaX);
         }
-    }
+    }*/
 
     /**
      * Class that saves pending dismiss data
@@ -681,7 +684,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
         final ViewGroup.LayoutParams lp = dismissView.getLayoutParams();
         final int originalHeight = dismissView.getHeight();
 
-        ValueAnimator animator = ValueAnimator.ofInt(originalHeight, 1).setDuration(animationTime);
+     /*   ValueAnimator animator = ValueAnimator.ofInt(originalHeight, 1).setDuration(animationTime);
 
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -722,7 +725,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
         });
 
         pendingDismisses.add(new PendingDismissData(dismissPosition, dismissView));
-        animator.start();
+        animator.start(); */
     }
 
 }

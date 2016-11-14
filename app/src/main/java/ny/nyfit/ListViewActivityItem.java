@@ -13,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
@@ -308,21 +307,25 @@ public class ListViewActivityItem extends AppCompatActivity{
         Float tempFett = Float.valueOf(tfett.getText().toString()) * 9.3f;
 
         Float gesamt = tempKH + tempProtein + tempFett;
-        DecimalFormat df = new DecimalFormat("0,0");
 
         Float khProzent = (tempKH * 100)/gesamt;
         Float proteineProzent = (tempProtein *100)/gesamt;
         Float fettProzent = (tempFett *100)/gesamt;
 
-        tKHProzent.setText(df.format(khProzent.toString()) + " %");
-        tProteineProzent.setText(df.format(proteineProzent.toString()) + " %");
-        tFettProzent.setText(df.format(fettProzent.toString()) + " %");
+        // Runden auf 2 Nachkommastellen
+        khProzent = ((float)((int)(khProzent*100)))/100;
+        proteineProzent = ((float)((int)(proteineProzent*100)))/100;
+        fettProzent = ((float)((int)(fettProzent*100)))/100;
+
+        tKHProzent.setText(khProzent.toString());
+        tProteineProzent.setText(proteineProzent.toString());
+        tFettProzent.setText(fettProzent.toString());
     }
 
     private void colorValues(){
-        Float tempKohlenhydrate = Float.valueOf(tKHProzent.getText().toString());
-        Float tempProtein = Float.valueOf(tProteineProzent.getText().toString());
-        Float tempFett = Float.valueOf(tFettProzent.getText().toString());
+        double tempKohlenhydrate = Double.valueOf(tKHProzent.getText().toString());
+        double tempProtein = Double.valueOf(tProteineProzent.getText().toString());
+        double tempFett = Double.valueOf(tFettProzent.getText().toString());
 
         // Kohlenhydrate
         if (tempKohlenhydrate > 70){
