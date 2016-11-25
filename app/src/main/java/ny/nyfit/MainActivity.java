@@ -83,7 +83,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_list2) {
             // TODO
         } else if (id == R.id.nav_add) {
-            // TODO Erfassung von Gewichtstatistiken
+            Intent intent = new Intent(this, StatisticsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_show) {
             // TODO Anzeige von Gewichtsstatistiken
         }

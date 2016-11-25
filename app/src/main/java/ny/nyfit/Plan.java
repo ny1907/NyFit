@@ -1,38 +1,44 @@
 package ny.nyfit;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by U820319 on 14.11.2016.
  */
 
 public class Plan {
-    private final int id;
-    private List<Integer> liste;
+    private int id;
     private String name;
+    private String datum;
     private float kalorienGesamt;
     private float kohlenhydrateGesamt;
     private float proteineGesamt;
     private float fettGesamt;
 
 
-    public Plan(int id, String name){
-        this.id = id;
+    public Plan(String name){
         this.name = name;
-        this.liste = new ArrayList();
     }
 
     public int getId(){
         return this.id;
     }
 
-    public List<Integer> getFoodList(){
-        return liste;
+    public void setId(int id){
+        this.id = id;
     }
 
     public String getName(){
         return name;
     }
 
+    public String getDatum(){
+        return this.datum;
+    }
+
+    public void setDatum(){
+
+    }
+
+    public String toString(){
+        return "Plan[id=" + id + ", name=" + name + "]";
+    }
 }

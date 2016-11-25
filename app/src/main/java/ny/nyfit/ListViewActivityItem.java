@@ -195,7 +195,7 @@ public class ListViewActivityItem extends AppCompatActivity{
         MySQLiteHelper db = new MySQLiteHelper(this);
         db.getWritableDatabase();
 
-        db.delete(this.food);
+        db.deleteFood(this.food);
         db.close();
 
 

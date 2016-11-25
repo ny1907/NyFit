@@ -51,7 +51,9 @@ public class InsertActivity extends AppCompatActivity
         }
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        if (navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(this);
+        }
 
         db = new MySQLiteHelper(this);
 
@@ -266,7 +268,8 @@ public class InsertActivity extends AppCompatActivity
         } else if (id == R.id.nav_list2) {
 
         } else if (id == R.id.nav_add) {
-
+            Intent intent = new Intent(this, StatisticsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_show) {
 
         }

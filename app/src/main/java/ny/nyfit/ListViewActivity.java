@@ -2,8 +2,13 @@ package ny.nyfit;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -11,7 +16,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListViewActivity extends AppCompatActivity {
+public class ListViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     ArrayList<Food> foodList;
 
@@ -21,6 +26,14 @@ public class ListViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        if (drawer != null) {
+            drawer.setDrawerListener(toggle);
+        }
+        toggle.syncState();
 
         MySQLiteHelper db = new MySQLiteHelper(this);
         db.getReadableDatabase();
@@ -68,6 +81,32 @@ public class ListViewActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_add_foods) {
+            Intent intent = new Intent(this, InsertActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_foodlist) {
+            Intent intent = new Intent(this, ListViewActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_list1) {
+
+        } else if (id == R.id.nav_list2) {
+
+        } else if (id == R.id.nav_add) {
+            Intent intent = new Intent(this, StatisticsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_show) {
+
+        }
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 
 }
 //http://www.vogella.com/tutorials/AndroidListView/article.html
