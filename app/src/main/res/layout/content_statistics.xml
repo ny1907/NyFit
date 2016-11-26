@@ -27,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:max="900"
             android:id="@+id/seekBarGewicht" />
 
         <TextView
@@ -42,6 +43,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="20dp"
+            android:max="250"
             android:id="@+id/fettStat" />
 
         <SeekBar
@@ -69,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:max="500"
             android:id="@+id/seekBarMuskeln" />
 
         <TextView
@@ -90,6 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:max="700"
             android:id="@+id/seekBarWasser" />
 
         <TextView
@@ -106,6 +110,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="0dp"
             android:layout_marginRight="0dp"
+            android:onClick="saveValues"
             android:id="@+id/saveStats" />
     </LinearLayout>
 </LinearLayout>

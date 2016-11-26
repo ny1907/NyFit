@@ -74,7 +74,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     private static final String CREATE_TABLE_PLAN = "CREATE TABLE IF NOT EXISTS " + TABLE_PLAN + "(" +
             PLAN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             PLAN_NAME + " TEXT NOT NULL, " +
-            PLAN_CREATE_DATE + " INTEGER NOT NULL, " +
+            PLAN_CREATE_DATE + " INTEGER NOT NULL " +
             ");";
 
 
@@ -83,8 +83,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             FP_PLAN_ID + " INTEGER NOT NULL, " +
             FP_FOOD_ID + " INTEGER NOT NULL, " +
             FP_AMOUNT + " INTEGER NOT NULL, " +
-            "FOREIGN KEY( + " + FP_PLAN_ID + ") REFERENCES " + TABLE_PLAN + "(" + PLAN_ID + ")" +
-            "FOREIGN KEY( + " + FP_FOOD_ID + ") REFERENCES " + TABLE_FOOD + " " + KEY_ID + ")" +
+            "FOREIGN KEY(" + FP_PLAN_ID + ") REFERENCES " + TABLE_PLAN + "(" + PLAN_ID + "), " +
+            "FOREIGN KEY(" + FP_FOOD_ID + ") REFERENCES " + TABLE_FOOD + "(" + KEY_ID + ")" +
             ");";
 
     // Statistics Table Create Statement
@@ -94,7 +94,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             STATISTICS_FAT + " REAL, " +
             STATISTICS_MUSCLE + " REAL, " +
             STATISTICS_WATER + " REAL, " +
-            STATISTICS_DATE + " TEXT NOT NULL, " +
+            STATISTICS_DATE + " TEXT NOT NULL" +
             ");";
 
     private static final String[] FOOD_COLUMNS = {KEY_ID, KEY_NAME, KEY_KCAL, KEY_CARBONHYDRATES, KEY_PROTEINS, KEY_FAT};
