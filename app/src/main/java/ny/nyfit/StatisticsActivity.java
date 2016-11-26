@@ -1,10 +1,11 @@
 package ny.nyfit;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -15,7 +16,7 @@ import android.widget.TextView;
  * Created by U820319 on 24.11.2016.
  */
 
-public class StatisticsActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener{
+public class StatisticsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     SeekBar SBgewicht;
     SeekBar SBfett;
@@ -33,17 +34,28 @@ public class StatisticsActivity extends Activity implements NavigationView.OnNav
     float muskeln;
     float wasser;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 
-        /*NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        if (drawer != null){
+            toggle.syncState();
+        }
+
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
             navigationView.setNavigationItemSelectedListener(this);
-        }*/
+        }
 
         SBgewicht = (SeekBar)findViewById(R.id.seekBarGewicht);
         SBfett = (SeekBar)findViewById(R.id.seekBarFett);
@@ -128,8 +140,12 @@ public class StatisticsActivity extends Activity implements NavigationView.OnNav
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer != null){
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            } else {
+                super.onBackPressed();
+            }
         } else {
             super.onBackPressed();
         }

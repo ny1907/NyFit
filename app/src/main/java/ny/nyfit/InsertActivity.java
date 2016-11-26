@@ -132,7 +132,7 @@ public class InsertActivity extends AppCompatActivity
 
         toast = Toast.makeText(context, text, duration);
         // TODO TESTEN: Prüfen, ob leere Felder vorhanden. Falls ja, Fokus in das erste leere Feld
-        if(lebensmittel.getText().toString().trim().equals("")){
+        if(lebensmittel.getText().equals("")){
             lebensmittel.requestFocus();
             toast.show();
             return false;
