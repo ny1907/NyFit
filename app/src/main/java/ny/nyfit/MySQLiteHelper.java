@@ -74,7 +74,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     private static final String CREATE_TABLE_PLAN = "CREATE TABLE IF NOT EXISTS " + TABLE_PLAN + "(" +
             PLAN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             PLAN_NAME + " TEXT NOT NULL, " +
-            PLAN_CREATE_DATE + " INTEGER NOT NULL " +
+            PLAN_CREATE_DATE + " INTEGER NOT NULL" +
             ");";
 
 
@@ -88,12 +88,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             ");";
 
     // Statistics Table Create Statement
-    private final String CREATE_TABLE_STATISTICS = "CREATE TABLE IF NOT EXISTS " + TABLE_STATISTICS + "(" +
+    private static final String CREATE_TABLE_STATISTICS = "CREATE TABLE IF NOT EXISTS " + TABLE_STATISTICS + "(" +
             STATISTICS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             STATISTICS_WEIGHT + " REAL NOT NULL, " +
-            STATISTICS_FAT + " REAL, " +
-            STATISTICS_MUSCLE + " REAL, " +
-            STATISTICS_WATER + " REAL, " +
+            STATISTICS_FAT + " REAL NOT NULL, " +
+            STATISTICS_MUSCLE + " REAL NOT NULL, " +
+            STATISTICS_WATER + " REAL NOT NULL, " +
             STATISTICS_DATE + " TEXT NOT NULL" +
             ");";
 
@@ -120,8 +120,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PLAN);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOOD);
-        db.execSQL("DROP TABLE IF EXISTS" + TABLE_FOODPLAN);
-        db.execSQL("DROP TABLE IF EXISTS" + TABLE_STATISTICS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOODPLAN);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATISTICS);
         onUpgrade(db, oldVersion, newVersion);
         this.onCreate(db);
     }

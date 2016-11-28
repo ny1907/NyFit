@@ -1,10 +1,7 @@
 package ny.nyfit;
 
+import android.app.ListActivity;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -16,18 +13,15 @@ import java.util.List;
  * Created by Nasif on 26.11.16.
  */
 
-public class StatisticsListActivity extends AppCompatActivity {
+public class StatisticsListActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_view);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        /*setContentView(R.layout.activity_list_view);*/
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);*/
 
         MySQLiteHelper db = new MySQLiteHelper(this);
-        db.getReadableDatabase();
 
         final ListView listview = (ListView) findViewById(R.id.listview);
 
@@ -36,10 +30,14 @@ public class StatisticsListActivity extends AppCompatActivity {
         db.close();
 
         for (Statistics s : statsList){
+            list.add(String.valueOf(s.getDatum()));
             list.add(String.valueOf(s.getGewicht()));
+            list.add(String.valueOf(s.getFett()));
+            list.add(String.valueOf(s.getMuskel()));
+            list.add(String.valueOf(s.getWasser()));
         }
 
-        final StableArrayAdapter adapter = new StableArrayAdapter(this, android.R.layout.simple_list_item_1, list);
+        final StableArrayAdapter adapter = new StableArrayAdapter(this, R.layout.activity_statistics_list_element, list);
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

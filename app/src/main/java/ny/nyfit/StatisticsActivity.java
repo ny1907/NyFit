@@ -46,7 +46,6 @@ public class StatisticsActivity extends AppCompatActivity implements NavigationV
     float wasser;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
