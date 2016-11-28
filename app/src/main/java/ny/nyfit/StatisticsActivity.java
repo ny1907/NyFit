@@ -207,11 +207,11 @@ public class StatisticsActivity extends AppCompatActivity implements NavigationV
     public void saveValues(View view){
         this.gewicht = (float) (SBgewicht.getProgress() + MIN_GEWICHT) /10;
         this.fett = (float) (SBfett.getProgress() + MIN_FETT) /10;
-        this.muskeln = (float) (SBmuskeln.getProgress() - MIN_MUSKELN) /10;
-        this.wasser = (float) (SBwasser.getProgress() - MIN_WASSER) /10;
+        this.muskeln = (float) (SBmuskeln.getProgress() + MIN_MUSKELN) /10;
+        this.wasser = (float) (SBwasser.getProgress() + MIN_WASSER) /10;
 
         Statistics stat = new Statistics(this.gewicht, this.fett, this.muskeln, this.wasser);
-        stat.setDatum();
+        stat.setCurrentDatum();
         MySQLiteHelper db = new MySQLiteHelper(this);
         db.addStat(stat);
         db.close();

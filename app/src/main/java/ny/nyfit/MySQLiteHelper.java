@@ -460,6 +460,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             do {
                 stats = new Statistics(cursor.getFloat(1), cursor.getFloat(2), cursor.getFloat(3), cursor.getFloat(4));
                 stats.setId(Integer.valueOf(cursor.getString(0)));
+                stats.setDatum(cursor.getString(5));
                 listStats.add(stats);
             } while (cursor.moveToNext());
         }

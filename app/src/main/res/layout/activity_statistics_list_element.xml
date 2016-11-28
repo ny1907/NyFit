@@ -7,6 +7,7 @@
         android:text="Datum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:id="@+id/listDatum"
         android:layout_weight="1" />
 

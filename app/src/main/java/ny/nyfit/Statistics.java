@@ -64,11 +64,15 @@ public class Statistics {
         return this.datum;
     }
 
-    public void setDatum() {
+    public void setCurrentDatum() {
         this.datum = getCurrentDate();
     }
 
+    public void setDatum(String datum) {
+        this.datum = datum;
+    }
+
     public String toString(){
-        return "Statistics[id=" + id + ", gewicht=" + gewicht + ", fett=" + fett + ", muskel=" + muskel + ", wasser=" + wasser + ", datum=" + datum + "]";
+        return "Statistics[id=" + id + "; gewicht=" + gewicht + "; fett=" + fett + "; muskel=" + muskel + "; wasser=" + wasser + "; datum=" + datum + "]";
     }
 }
