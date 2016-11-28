@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="Datum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listDatum"
+        android:layout_weight="1" />
+
+    <TextView
+        android:text="Gewicht"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listGewicht"
+        android:layout_weight="1" />
+
+    <TextView
+        android:text="Fett"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listFett"
+        android:layout_weight="1" />
+
+    <TextView
+        android:text="Muskeln"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listMuskeln"
+        android:layout_weight="1" />
+
+    <TextView
+        android:text="Wasser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listWasser"
+        android:layout_weight="1" />
+</LinearLayout>
