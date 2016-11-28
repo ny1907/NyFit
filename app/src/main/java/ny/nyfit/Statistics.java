@@ -64,9 +64,8 @@ public class Statistics {
         return this.datum;
     }
 
-    public String setDatum() {
-        // TODO
-        return null;
+    public void setDatum() {
+        this.datum = getCurrentDate();
     }
 
     public String toString(){
