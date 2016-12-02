@@ -8,8 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
-import static android.media.CamcorderProfile.get;
+import java.util.HashMap;
 
 /**
  * Created by U820319 on 28.11.2016.
@@ -19,6 +18,7 @@ public class StatisticsArrayAdapter extends ArrayAdapter<String> {
     private final Context context;
     /*private final String[] values;*/
     private final ArrayList<String> values;
+    private final Util util = new Util();
 
     public StatisticsArrayAdapter(Context context, ArrayList<String> values) {
         super(context, -1, values);
@@ -35,12 +35,13 @@ public class StatisticsArrayAdapter extends ArrayAdapter<String> {
         TextView tMuskeln = (TextView) rowView.findViewById(R.id.listMuskeln);
         TextView tWasser = (TextView) rowView.findViewById(R.id.listWasser);
 
+        HashMap<String, String> map = util.getStatisticValues(values.get(position));
 
-        tDatum.setText(values.get(position));
-        tGewicht.setText(values.get(position+1));
-        tFett.setText(values.get(position+2));
-        tMuskeln.setText(values.get(position+3));
-        tWasser.setText(values.get(position+4));
+        tDatum.setText(map.get("datum"));
+        tGewicht.setText(map.get("gewicht"));
+        tFett.setText(map.get("fett"));
+        tMuskeln.setText(map.get("muskel"));
+        tWasser.setText(map.get("wasser"));
 
         return rowView;
     }
