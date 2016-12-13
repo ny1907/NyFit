@@ -22,4 +22,8 @@
     <string name="output_data">Übersicht</string>
     <string name="appName">NyFit</string>
     <string name="appDeveloper">Nasif Yüksel</string>
+
+    <string name="title_activity_statistics_overview">StatisticsOverviewActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

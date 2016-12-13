@@ -37,8 +37,14 @@
         <activity
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ListViewActivityItem" />
+        <activity android:name=".PlanActivity" />
+        <activity
+            android:name=".StatisticsOverviewActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_statistics_overview"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>
