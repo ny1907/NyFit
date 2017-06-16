@@ -1,16 +1,14 @@
 package ny.nyfit;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,8 +17,11 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
-public class InsertActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+/**
+ * Created by U820319 on 23.05.2017.
+ */
+
+public class InsertFragment extends Fragment implements View.OnClickListener{
 
     EditText lebensmittel;
     EditText kcal;
@@ -28,6 +29,8 @@ public class InsertActivity extends AppCompatActivity
     EditText proteine;
     EditText fett;
     TextView error;
+    Button save;
+    Button delete;
     MySQLiteHelper db;
 
     Context context;
@@ -35,46 +38,94 @@ public class InsertActivity extends AppCompatActivity
     int duration = Toast.LENGTH_SHORT;
     Toast toast;
 
+    private OnFragmentInteractionListener mListener;
+
+    public InsertFragment() {
+
+    }
+
+    public static InsertFragment newInsertFragment(){
+        InsertFragment fragment = new InsertFragment();
+        Bundle args = new Bundle();
+        return fragment;
+    }
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_insert);
-        setContentView(R.layout.content_insert);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        context = getApplicationContext();
+    public void onCreate(Bundle savedInsanceState) {
+        super.onCreate(savedInsanceState);
+    }
 
-       /* DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        if (drawer != null) {
-            drawer.setDrawerListener(toggle);
-        }
-        toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        if (navigationView != null) {
-            navigationView.setNavigationItemSelectedListener(this);
-        }
-*/
-        db = new MySQLiteHelper(this);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        View v =  inflater.inflate(R.layout.content_insert, container, false);
 
-        lebensmittel = (EditText) findViewById(R.id.editTextLebensmittel);
-        kcal = (EditText) findViewById(R.id.editTextKcal);
-        kohlenhydrate = (EditText) findViewById(R.id.editTextkohlenhydrate);
-        proteine = (EditText) findViewById(R.id.editTextProteine);
-        fett = (EditText) findViewById(R.id.editTextFett);
-        error = (TextView) findViewById(R.id.textViewError);
+        context = getActivity();
+
+        db = new MySQLiteHelper(getActivity());
+
+        lebensmittel = (EditText) v.findViewById(R.id.editTextLebensmittel);
+        kcal = (EditText) v.findViewById(R.id.editTextKcal);
+        kohlenhydrate = (EditText) v.findViewById(R.id.editTextkohlenhydrate);
+        proteine = (EditText) v.findViewById(R.id.editTextProteine);
+        fett = (EditText) v.findViewById(R.id.editTextFett);
+        error = (TextView) v.findViewById(R.id.textViewError);
+        save = (Button) v.findViewById(R.id.buttonSpeichern);
+        delete = (Button) v.findViewById(R.id.buttonVerwerfen);
+
+        save.setOnClickListener(this);
+        delete.setOnClickListener(this);
 
         int kcalnr, lebensmittelnr, kohlenhrdratenr, proteinenr, fettnr;
 
-        final String errorText = "Alle Felder müssen befüllt werden!";
+        final String errorText = "Default";
         error.setText(errorText);
+
+        return v;
+    }
+
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.buttonSpeichern:
+                save(v);
+                break;
+            case R.id.buttonVerwerfen:
+                discard(v);
+                break;
+        }
+    }
+
+    public interface OnFragmentInteractionListener{
+        void onFragmentInteraction(Uri uri);
     }
 
     public void save (View view) {
         if(keineLeerenFelder()){
-           if(felderPlausibilisieren()){
-               if(pruefeFeldlaengen()){
+            if(felderPlausibilisieren()){
+                if(pruefeFeldlaengen()){
 
                     NumberFormat formatter = NumberFormat.getNumberInstance(Locale.GERMANY);
 
@@ -109,7 +160,7 @@ public class InsertActivity extends AppCompatActivity
                         db.addFood(food);
 
                         //TODO Testen: Hinweis, dass Lebensmittel gespeichert wurde
-                        context = getApplicationContext();
+                       // context = getApplicationContext();
                         text = "Das Lebensmittel wurde hinzugefügt!";
                         toast = Toast.makeText(context, text, duration);
                         toast.show();
@@ -122,44 +173,45 @@ public class InsertActivity extends AppCompatActivity
 
                     }
 
-               }
-           }
+                }
+            }
         }
     }
 
     private boolean keineLeerenFelder(){
-        context = getApplicationContext();
+        //context = getActivity();
         text = "Bitte alle Felder ausfüllen!";
 
         toast = Toast.makeText(context, text, duration);
         // TODO TESTEN: Prüfen, ob leere Felder vorhanden. Falls ja, Fokus in das erste leere Feld
-        if(lebensmittel.getText().equals("")){
+        if(lebensmittel.getText().toString().trim().equals("")){
             lebensmittel.requestFocus();
             toast.show();
             return false;
         }
-        else if(kcal.getText().toString().trim().equals("")){
+        if(kcal.getText().toString().trim().equals("")){
             kcal.requestFocus();
             toast.show();
             return false;
         }
-        else if(kohlenhydrate.getText().toString().trim().equals("")){
+        if(kohlenhydrate.getText().toString().trim().equals("")){
             kohlenhydrate.requestFocus();
             toast.show();
             return false;
         }
-        else if (proteine.getText().toString().trim().equals("")){
+        if (proteine.getText().toString().trim().equals("")){
             proteine.requestFocus();
             toast.show();
             return false;
         }
-        else if (fett.getText().toString().trim().equals("")){
+        if (fett.getText().toString().trim().equals("")){
             fett.requestFocus();
             toast.show();
             return false;
         }
-
-        return true;
+        else {
+            return true;
+        }
     }
 
     /*
@@ -168,7 +220,7 @@ public class InsertActivity extends AppCompatActivity
      return false: Eines der Felder erfüllt nicht
       */
     private boolean felderPlausibilisieren(){
-        context = getApplicationContext();
+     //   context = getActivity();
         text = "Unerlaubte Zeichen";
         toast.makeText(context, text, duration);
         // TODO Name: Nur Buchstaben, max. 30 Zeichen
@@ -198,12 +250,15 @@ public class InsertActivity extends AppCompatActivity
             fett.requestFocus();
             return false;
         }
+        else{
+            return true;
+        }
 
-        return true;
+
     }
 
     private boolean pruefeFeldlaengen(){
-        context = getApplicationContext();
+  //      context = getActivity();
         text = "Das Feld enthält zu viele Zeichen";
         toast = Toast.makeText(context, text, duration);
         if(lebensmittel.length() > 30){
@@ -231,54 +286,17 @@ public class InsertActivity extends AppCompatActivity
             toast.show();
             return false;
         }
-
-        return true;
+        else {
+            return true;
+        }
     }
 
     public void discard (View view){
-            lebensmittel.setText("");
-            kcal.setText("");
-            kohlenhydrate.setText("");
-            proteine.setText("");
-            fett.setText("");
+        lebensmittel.setText("");
+        kcal.setText("");
+        kohlenhydrate.setText("");
+        proteine.setText("");
+        fett.setText("");
     }
 
-    @Override
-    public void onBackPressed() {
-      //  DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-      //  if (drawer.isDrawerOpen(GravityCompat.START)) {
-      //      drawer.closeDrawer(GravityCompat.START);
-      //  } else {
-            super.onBackPressed();
-      //  }
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_add_foods) {
-            Intent intent = new Intent(this, InsertActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_foodlist) {
-            Intent intent = new Intent(this, ListViewActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_list1) {
-
-        } else if (id == R.id.nav_list2) {
-
-        } else if (id == R.id.nav_add) {
-            Intent intent = new Intent(this, StatisticsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_show) {
-
-        }
-
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 }
-

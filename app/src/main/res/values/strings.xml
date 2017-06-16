@@ -26,4 +26,7 @@
     <string name="title_activity_statistics_overview">StatisticsOverviewActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="app_not_available">AppNotAvailable</string>
+    <string name="drawer_open">DrawerOpen</string>
+    <string name="drawer_close">DrawperClose</string>
 </resources>

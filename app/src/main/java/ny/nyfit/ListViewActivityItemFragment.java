@@ -4,12 +4,13 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -20,16 +21,13 @@ import java.text.ParseException;
 import java.util.Locale;
 
 /**
- * Created by U820319 on 13.10.2016.
+ * Created by U820319 on 16.06.2017.
  */
 
-public class ListViewActivityItem extends AppCompatActivity{
+public class ListViewActivityItemFragment extends Fragment {
+
     Food food;
     String nameFood;
-    /*Float kcal;
-    Float kohlenhydrate;
-    Float proteine;
-    Float fett;*/
 
     private TextView tname;
     private TextView tkcal;
@@ -52,39 +50,55 @@ public class ListViewActivityItem extends AppCompatActivity{
     private TextView tProteineProzent;
     private TextView tFettProzent;
 
-    protected void onCreate(final Bundle savedInstanBundle){
-        super.onCreate(savedInstanBundle);
-        setContentView(R.layout.content_list_view_item);
+    private ListViewFragment.OnFragmentInteractionListener mListener;
 
-        Intent intent = getIntent();
-        nameFood = (String) intent.getSerializableExtra("item");
+    public ListViewActivityItemFragment(){
+
+    }
+
+    public static ListViewActivityItemFragment newListViewActivityItemFragment(){
+        ListViewActivityItemFragment fragment = new ListViewActivityItemFragment();
+        Bundle args = new Bundle();
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInsanceState) {
+        super.onCreate(savedInsanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        View v = inflater.inflate(R.layout.content_list_view_item, container, false);
+
+        nameFood = (String) getArguments().get("item");
 
         // IDs der Textfelder ermitteln
-        tname = (TextView)findViewById(R.id.name);
-        tkcal = (TextView) findViewById(R.id.kcal);
-        tkohlenhydrate = (TextView)findViewById(R.id.kohlenhydrate);
-        tproteine = (TextView)findViewById(R.id.proteine);
-        tfett = (TextView)findViewById(R.id.fett);
+        tname = (TextView)v.findViewById(R.id.name);
+        tkcal = (TextView) v.findViewById(R.id.kcal);
+        tkohlenhydrate = (TextView)v.findViewById(R.id.kohlenhydrate);
+        tproteine = (TextView)v.findViewById(R.id.proteine);
+        tfett = (TextView)v.findViewById(R.id.fett);
 
-        tKHProzent = (TextView)findViewById(R.id.kohlenhydrateProzent);
-        tProteineProzent = (TextView)findViewById(R.id.ProteineProzent);
-        tFettProzent = (TextView)findViewById(R.id.fettProzent);
+        tKHProzent = (TextView)v.findViewById(R.id.kohlenhydrateProzent);
+        tProteineProzent = (TextView)v.findViewById(R.id.ProteineProzent);
+        tFettProzent = (TextView)v.findViewById(R.id.fettProzent);
 
         // IDs der Eingabefelder
-        eName = (EditText)findViewById(R.id.editname);
-        eKcal = (EditText)findViewById(R.id.editkcal);
-        eKohlenhydrate = (EditText)findViewById(R.id.editkohlenhydrate);
-        eProteine = (EditText)findViewById(R.id.editproteine);
-        eFett = (EditText)findViewById(R.id.editfett);
+        eName = (EditText)v.findViewById(R.id.editname);
+        eKcal = (EditText)v.findViewById(R.id.editkcal);
+        eKohlenhydrate = (EditText)v.findViewById(R.id.editkohlenhydrate);
+        eProteine = (EditText)v.findViewById(R.id.editproteine);
+        eFett = (EditText)v.findViewById(R.id.editfett);
 
         // IDs der Buttons
-        editButton = (ImageButton)findViewById(R.id.editButton);
-        saveButton = (ImageButton)findViewById(R.id.saveButton);
-        discardButton = (ImageButton)findViewById(R.id.discardButton);
-        deleteButton = (ImageButton)findViewById(R.id.deleteButton);
+        editButton = (ImageButton)v.findViewById(R.id.editButton);
+        saveButton = (ImageButton)v.findViewById(R.id.saveButton);
+        discardButton = (ImageButton)v.findViewById(R.id.discardButton);
+        deleteButton = (ImageButton)v.findViewById(R.id.deleteButton);
 
         // Datenbankverbindung öffnen
-        MySQLiteHelper db = new MySQLiteHelper(this);
+        MySQLiteHelper db = new MySQLiteHelper(getActivity());
         db.getReadableDatabase();
 
         // Food-Objekt aus Datenbank erzeugen
@@ -100,6 +114,8 @@ public class ListViewActivityItem extends AppCompatActivity{
 
         setPercentValues();
         colorValues();
+
+        return v;
     }
 
     public void editFood(View view){
@@ -178,23 +194,23 @@ public class ListViewActivityItem extends AppCompatActivity{
     // Delete Food from Database
     public void deleteFood(View view){
 
-        new AlertDialog.Builder(this)
-            .setIcon(android.R.drawable.ic_dialog_alert)
-            .setTitle("Löschen")
-            .setMessage("Wirklich Löschen?")
-            .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                   deleteFoodFromDB();
-                }
-            })
-            .setNegativeButton("Nein", null)
-            .show();
+        new AlertDialog.Builder(getActivity())
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Löschen")
+                .setMessage("Wirklich Löschen?")
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteFoodFromDB();
+                    }
+                })
+                .setNegativeButton("Nein", null)
+                .show();
 
     }
 
     private void deleteFoodFromDB(){
-        MySQLiteHelper db = new MySQLiteHelper(this);
+        MySQLiteHelper db = new MySQLiteHelper(getActivity());
         db.getWritableDatabase();
 
         db.deleteFood(this.food);
@@ -203,8 +219,6 @@ public class ListViewActivityItem extends AppCompatActivity{
         Fragment fragment = new ListViewFragment();
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction().replace(R.id.content_frame, fragment, "Hallo").commit();
-
-        finish();
 
       /*
         Intent intent = new Intent(this, ListViewActivity.class);
@@ -225,7 +239,7 @@ public class ListViewActivityItem extends AppCompatActivity{
         String tempFett = eFett.getText().toString().trim();
 
         if (tempName.equals("") || tempKcal.equals("") || tempKohlenhydrate.equals("") || tempProteine.equals("") || tempFett.equals("")){
-            new AlertDialog.Builder(this)
+            new AlertDialog.Builder(getActivity())
                     .setTitle("Leere Felder")
                     .setMessage("Alle Felder müssen befüllt werden!")
                     .setNegativeButton("Nein", null)
@@ -256,12 +270,12 @@ public class ListViewActivityItem extends AppCompatActivity{
                 //Werte in die DB schreiben
                 saveChangesOnDB(this.food);
 
-                Context context = getApplicationContext();
+                Context context = getActivity();
                 Toast.makeText(context, "Die Änderungen wurden gespeichert.", Toast.LENGTH_SHORT);
             }
 
             else {
-                Context context = getApplicationContext();
+                Context context = getActivity();
                 Toast.makeText(context, "Es wurde nichts verändert!", Toast.LENGTH_SHORT).show();
             }
 
@@ -304,7 +318,7 @@ public class ListViewActivityItem extends AppCompatActivity{
     }
 
     private void saveChangesOnDB(Food food){
-        MySQLiteHelper db = new MySQLiteHelper(this);
+        MySQLiteHelper db = new MySQLiteHelper(getActivity());
         db.getWritableDatabase();
 
         db.addFood(food);
@@ -370,4 +384,26 @@ public class ListViewActivityItem extends AppCompatActivity{
             tFettProzent.setTextColor(Color.GREEN);
         }
     }
+
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface OnFragmentInteractionListener{
+        void onFragmentInteraction(Uri uri);
+    }
+
 }
