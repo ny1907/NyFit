@@ -182,36 +182,23 @@ public class InsertFragment extends Fragment implements View.OnClickListener{
         //context = getActivity();
         text = "Bitte alle Felder ausfüllen!";
 
+        Boolean bLebensmittel = lebensmittel.getText().toString().trim().equals("");
+        Boolean bKcal = kcal.getText().toString().trim().equals("");
+        Boolean bKohlenhydrate = kohlenhydrate.getText().toString().trim().equals("");
+        Boolean bProteine = proteine.getText().toString().trim().equals("");
+        Boolean bFett = fett.getText().toString().trim().equals("");
+
         toast = Toast.makeText(context, text, duration);
-        // TODO TESTEN: Prüfen, ob leere Felder vorhanden. Falls ja, Fokus in das erste leere Feld
-        if(lebensmittel.getText().toString().trim().equals("")){
-            lebensmittel.requestFocus();
-            toast.show();
-            return false;
-        }
-        if(kcal.getText().toString().trim().equals("")){
-            kcal.requestFocus();
-            toast.show();
-            return false;
-        }
-        if(kohlenhydrate.getText().toString().trim().equals("")){
-            kohlenhydrate.requestFocus();
-            toast.show();
-            return false;
-        }
-        if (proteine.getText().toString().trim().equals("")){
-            proteine.requestFocus();
-            toast.show();
-            return false;
-        }
-        if (fett.getText().toString().trim().equals("")){
-            fett.requestFocus();
+
+        if (bLebensmittel || bKcal || bKohlenhydrate || bProteine || bFett){
+
             toast.show();
             return false;
         }
         else {
             return true;
         }
+
     }
 
     /*
@@ -220,9 +207,9 @@ public class InsertFragment extends Fragment implements View.OnClickListener{
      return false: Eines der Felder erfüllt nicht
       */
     private boolean felderPlausibilisieren(){
-     //   context = getActivity();
+        //context = getActivity();
         text = "Unerlaubte Zeichen";
-        toast.makeText(context, text, duration);
+        toast = Toast.makeText(context, text, duration);
         // TODO Name: Nur Buchstaben, max. 30 Zeichen
         // TODO Kcal, Kohlenhydrate, Proteine, Fett: Nur Zahlen und EIN Punkt oder EIN Komma, max. 5 Zeichen
         if (!lebensmittel.getText().toString().trim().matches("[A-Za-z &\\-0-9]")){

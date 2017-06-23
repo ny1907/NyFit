@@ -99,7 +99,7 @@
         android:layout_alignTop="@+id/name"
         android:layout_alignBottom="@+id/name"
         android:layout_toEndOf="@+id/name"
-        android:layout_marginStart="128dp"
+        android:layout_marginStart="32dp"
         android:onClick="editFood"
         />
 
@@ -109,10 +109,10 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_save"
         android:id="@+id/saveButton"
-        android:layout_alignTop="@+id/name"
-        android:layout_alignBottom="@+id/name"
-        android:layout_toEndOf="@+id/name"
-        android:layout_marginStart="128dp"
+        android:layout_alignTop="@+id/editname"
+        android:layout_alignBottom="@+id/editname"
+        android:layout_toEndOf="@+id/editname"
+        android:layout_marginStart="32dp"
         android:onClick="saveChanges"
         android:visibility="invisible"
         />
@@ -123,9 +123,9 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_delete"
         android:id="@+id/discardButton"
-        android:layout_alignBottom="@+id/editButton"
-        android:layout_toEndOf="@+id/editButton"
-        android:layout_alignTop="@+id/editButton"
+        android:layout_alignBottom="@+id/saveButton"
+        android:layout_toEndOf="@+id/saveButton"
+        android:layout_alignTop="@+id/saveButton"
         android:layout_marginStart="32dp"
         android:onClick="discardChanges"
         android:visibility="gone"/>

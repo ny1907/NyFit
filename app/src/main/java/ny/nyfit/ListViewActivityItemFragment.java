@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,9 @@ import java.util.Locale;
  * Created by U820319 on 16.06.2017.
  */
 
-public class ListViewActivityItemFragment extends Fragment {
+public class ListViewActivityItemFragment extends Fragment implements View.OnClickListener {
+    Fragment fragment;
+    FragmentManager fm;
 
     Food food;
     String nameFood;
@@ -71,6 +74,9 @@ public class ListViewActivityItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.content_list_view_item, container, false);
 
+        fragment = new ListViewFragment();
+        fm = getFragmentManager();
+
         nameFood = (String) getArguments().get("item");
 
         // IDs der Textfelder ermitteln
@@ -96,6 +102,12 @@ public class ListViewActivityItemFragment extends Fragment {
         saveButton = (ImageButton)v.findViewById(R.id.saveButton);
         discardButton = (ImageButton)v.findViewById(R.id.discardButton);
         deleteButton = (ImageButton)v.findViewById(R.id.deleteButton);
+
+        // OnClickListener setzen
+        editButton.setOnClickListener(this);
+        saveButton.setOnClickListener(this);
+        discardButton.setOnClickListener(this);
+        deleteButton.setOnClickListener(this);
 
         // Datenbankverbindung öffnen
         MySQLiteHelper db = new MySQLiteHelper(getActivity());
@@ -216,8 +228,6 @@ public class ListViewActivityItemFragment extends Fragment {
         db.deleteFood(this.food);
         db.close();
 
-        Fragment fragment = new ListViewFragment();
-        FragmentManager fm = getFragmentManager();
         fm.beginTransaction().replace(R.id.content_frame, fragment, "Hallo").commit();
 
       /*
@@ -229,7 +239,6 @@ public class ListViewActivityItemFragment extends Fragment {
     }
 
     public void saveChanges(View view) {
-        //TODO Prüfen, ob leere Felder vorhanden
 
         //Inhalte zwischenspeichern
         String tempName = eName.getText().toString().trim();
@@ -247,7 +256,7 @@ public class ListViewActivityItemFragment extends Fragment {
 
         }
         else{
-            NumberFormat formatter = NumberFormat.getNumberInstance(Locale.GERMANY);
+            NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US);
 
             //Buttons unsichtbar machen
             saveButton.setVisibility(ImageButton.INVISIBLE);
@@ -321,7 +330,7 @@ public class ListViewActivityItemFragment extends Fragment {
         MySQLiteHelper db = new MySQLiteHelper(getActivity());
         db.getWritableDatabase();
 
-        db.addFood(food);
+        db.updateFood(food);
         db.close();
     }
 
@@ -401,6 +410,25 @@ public class ListViewActivityItemFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.editButton:
+                editFood(v);
+                break;
+            case R.id.saveButton:
+                saveChanges(v);
+                break;
+            case R.id.discardButton:
+                discardChanges(v);
+                break;
+            case R.id.deleteButton:
+                deleteFood(v);
+                break;
+        }
+    }
+
 
     public interface OnFragmentInteractionListener{
         void onFragmentInteraction(Uri uri);

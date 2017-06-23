@@ -38,6 +38,8 @@ public class Main2Activity extends AppCompatActivity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
 
+    FragmentManager fm;
+
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,13 +89,23 @@ public class Main2Activity extends AppCompatActivity {
         }
     }
 
-    @Override
+  /*  @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }
+    }
+*/
+    @Override
+    public void onBackPressed() {
+
+        if(fm.getBackStackEntryCount() > 0){
+            fm.popBackStack();
+        } else{
+            finish();
         }
     }
 
@@ -187,8 +199,8 @@ public class Main2Activity extends AppCompatActivity {
                 .commit();
 */
         Fragment fragment = getHomeFragment(position);
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment, "Hallo").commit();
+        fm = getFragmentManager();
+        fm.beginTransaction().replace(R.id.content_frame, fragment, "Hallo").commit();
 
         // Highlight the selected item, update the title, and close the drawer
         mDrawerList.setItemChecked(position, true);

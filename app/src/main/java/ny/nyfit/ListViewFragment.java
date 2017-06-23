@@ -90,7 +90,7 @@ public class ListViewFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString("item", item);
         fragment.setArguments(bundle);
-        fm.beginTransaction().replace(R.id.content_frame, fragment, "ListViewActivityItemFragment").commit();
+        fm.beginTransaction().replace(R.id.content_frame, fragment, "ListViewActivityItemFragment").addToBackStack(null).commit();
     }
 
     public void onButtonPressed(Uri uri) {
